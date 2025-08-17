@@ -308,21 +308,22 @@
                             {% for cita in citas %}
                             <tr class="cita-row" data-id="{{ cita.id_cita }}">
                                 <td>
-                                    <div class="fecha-hora">
-                                        <!-- ✅ CORREGIR: Usar fecha_hora directamente -->
-                                        {% if cita.fecha_hora %}
-                                            <div class="fecha">
-                                                {{ cita.fecha_hora|slice:":10"|date:"d/m/Y" }}
-                                            </div>
-                                            <div class="hora">
-                                                {{ cita.fecha_hora|slice:"11:19"|time:"H:i" }}
-                                            </div>
-                                        {% else %}
-                                            <div class="fecha">Sin fecha</div>
-                                            <div class="hora">--:--</div>
-                                        {% endif %}
-                                    </div>
-                                </td>
+    <div class="fecha-hora">
+        {% if cita.fecha_hora %}
+            <div class="fecha">
+                <!-- ✅ FORMATO MANUAL DD/MM/YYYY -->
+                {{ cita.fecha_hora|slice:"8:10" }}/{{ cita.fecha_hora|slice:"5:7" }}/{{ cita.fecha_hora|slice:":4" }}
+            </div>
+            <div class="hora">
+                <!-- ✅ FORMATO MANUAL HH:MM -->
+                {{ cita.fecha_hora|slice:"11:16" }}
+            </div>
+        {% else %}
+            <div class="fecha">Sin fecha</div>
+            <div class="hora">--:--</div>
+        {% endif %}
+    </div>
+</td>
                                 <td>
                                     <div class="especialidad">
                                         <i class="fas fa-stethoscope"></i>
