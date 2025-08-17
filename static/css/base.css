@@ -1,85 +1,55 @@
-/* =============================================
-   MEDISYS BASE.CSS - SISTEMA HOSPITALARIO
-   =============================================*/
+/* ===== BASE.CSS - TEMA MÉDICO PROFESIONAL ===== */
 
+/* Variables médicas */
 :root {
-    /* Colores principales del sistema */
-    --medisys-primary: #2c3e50;
-    --medisys-secondary: #3498db;
-    --medisys-accent: #e74c3c;
-    --medisys-success: #27ae60;
-    --medisys-warning: #f39c12;
-    --medisys-info: #17a2b8;
-    --medisys-dark: #1a252f;
-    --medisys-light: #ecf0f1;
+    /* Colores médicos profesionales */
+    --medisys-primary: #2563eb;     /* Azul médico */
+    --medisys-secondary: #1e40af;   /* Azul oscuro */
+    --medisys-accent: #3b82f6;      /* Azul claro */
+    --medisys-success: #059669;     /* Verde médico */
+    --medisys-warning: #d97706;     /* Naranja */
+    --medisys-danger: #dc2626;      /* Rojo médico */
+    --medisys-info: #0891b2;        /* Cyan */
     
-    /* COLORES ESPECÍFICOS POR ROL */
-    --medisys-administrador: #8B0000;
-    --medisys-administrador-gradient: linear-gradient(135deg, #8B0000, #DC143C);
-    --medisys-administrador-light: rgba(139, 0, 0, 0.1);
+    /* Colores por rol - tonos médicos suaves */
+    --medisys-admin: #7c3aed;       /* Púrpura profesional */
+    --medisys-doctor: #059669;      /* Verde médico */
+    --medisys-patient: #2563eb;     /* Azul confianza */
+    --medisys-receptionist: #d97706; /* Naranja cálido */
+    --medisys-nurse: #db2777;       /* Rosa médico */
     
-    --medisys-servicios: #4B0082;
-    --medisys-servicios-gradient: linear-gradient(135deg, #4B0082, #6A0DAD);
-    --medisys-servicios-light: rgba(75, 0, 130, 0.1);
+    /* Grises médicos */
+    --medisys-gray-50: #f8fafc;
+    --medisys-gray-100: #f1f5f9;
+    --medisys-gray-200: #e2e8f0;
+    --medisys-gray-300: #cbd5e1;
+    --medisys-gray-500: #64748b;
+    --medisys-gray-700: #334155;
+    --medisys-gray-900: #0f172a;
     
-    --medisys-medico: #2E8B57;
-    --medisys-medico-gradient: linear-gradient(135deg, #2E8B57, #228B22);
-    --medisys-medico-light: rgba(46, 139, 87, 0.1);
-    
-    --medisys-paciente: #FF6347;
-    --medisys-paciente-gradient: linear-gradient(135deg, #FF6347, #FF4500);
-    --medisys-paciente-light: rgba(255, 99, 71, 0.1);
-    
-    --medisys-recepcionista: #4169E1;
-    --medisys-recepcionista-gradient: linear-gradient(135deg, #4169E1, #1E90FF);
-    --medisys-recepcionista-light: rgba(65, 105, 225, 0.1);
-    
-    --medisys-enfermero: #9370DB;
-    --medisys-enfermero-gradient: linear-gradient(135deg, #9370DB, #8A2BE2);
-    --medisys-enfermero-light: rgba(147, 112, 219, 0.1);
-    
-    /* Dimensiones del layout */
-    --medisys-header-height: 70px;
+    /* Dimensiones */
+    --medisys-header-height: 65px;
     --medisys-sidebar-width: 280px;
-    --medisys-sidebar-collapsed-width: 70px;
+    --medisys-sidebar-collapsed: 60px;
     
-    /* Sombras */
-    --medisys-shadow-sm: 0 2px 10px rgba(0,0,0,0.1);
-    --medisys-shadow-md: 0 4px 20px rgba(0,0,0,0.15);
-    --medisys-shadow-lg: 0 8px 30px rgba(0,0,0,0.2);
+    /* Sombras médicas suaves */
+    --medisys-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --medisys-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+    --medisys-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
     
     /* Transiciones */
-    --medisys-transition-fast: 0.2s ease;
-    --medisys-transition-normal: 0.3s ease;
-    --medisys-transition-slow: 0.5s ease;
-    
-    /* Border radius */
-    --medisys-radius-sm: 8px;
-    --medisys-radius-md: 12px;
-    --medisys-radius-lg: 15px;
-    --medisys-radius-xl: 20px;
+    --medisys-transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* =============================================
-   RESET Y BASE
-   =============================================*/
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* Reset específico para medisys */
+.medisys-app {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, var(--medisys-gray-50) 0%, var(--medisys-gray-100) 100%);
+    min-height: 100vh;
+    color: var(--medisys-gray-700);
 }
 
-.medisys-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #f8fafc 0%, #e3f2fd 100%);
-    color: var(--medisys-primary);
-    overflow-x: hidden;
-    line-height: 1.6;
-}
-
-/* =============================================
-   HEADER PROFESIONAL
-   =============================================*/
+/* ===== HEADER MÉDICO ===== */
 .medisys-header {
     position: fixed;
     top: 0;
@@ -88,661 +58,594 @@
     height: var(--medisys-header-height);
     background: linear-gradient(135deg, var(--medisys-primary) 0%, var(--medisys-secondary) 100%);
     box-shadow: var(--medisys-shadow-md);
-    z-index: 1050;
-    backdrop-filter: blur(10px);
+    z-index: 1030;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .medisys-header-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 25px;
     height: 100%;
-    max-width: 100%;
+    padding: 0 1.5rem;
 }
 
-/* Header Brand */
-.medisys-header-brand {
+/* Brand médico */
+.medisys-brand {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 1rem;
+    min-width: 280px;
 }
 
 .medisys-sidebar-toggle {
-    background: rgba(255,255,255,0.1);
+    background: rgba(255, 255, 255, 0.15);
     border: none;
     color: white;
-    padding: 12px;
-    border-radius: var(--medisys-radius-md);
+    padding: 8px 12px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: var(--medisys-transition-normal);
-    font-size: 1.1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    transition: var(--medisys-transition);
+    font-size: 1rem;
 }
 
 .medisys-sidebar-toggle:hover {
-    background: rgba(255,255,255,0.2);
+    background: rgba(255, 255, 255, 0.25);
     transform: scale(1.05);
 }
 
-.medisys-sidebar-toggle:focus {
-    outline: 2px solid rgba(255,255,255,0.5);
-    outline-offset: 2px;
-}
-
-.medisys-sidebar-toggle i {
-    transition: var(--medisys-transition-normal);
-}
-
-.medisys-brand-info {
+.medisys-brand-content {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 0.75rem;
 }
 
-.medisys-brand-icon {
-    width: 50px;
-    height: 50px;
-    background: white;
-    border-radius: var(--medisys-radius-lg);
+.medisys-logo {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--medisys-secondary);
-    font-size: 1.5rem;
-    box-shadow: var(--medisys-shadow-sm);
-    animation: heartbeat 2s ease-in-out infinite;
+    color: white;
+    font-size: 1.25rem;
+    backdrop-filter: blur(10px);
 }
 
-@keyframes heartbeat {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-}
-
-.medisys-brand-text-container {
+.medisys-brand-text {
     display: flex;
     flex-direction: column;
 }
 
-.medisys-brand-text {
-    font-size: 1.6rem;
+.medisys-title {
+    font-size: 1.5rem;
     font-weight: 700;
     color: white;
-    letter-spacing: -0.5px;
     line-height: 1;
+    letter-spacing: -0.025em;
 }
 
-.medisys-brand-subtitle {
-    font-size: 0.85rem;
-    color: rgba(255,255,255,0.8);
-    font-weight: 300;
+.medisys-subtitle {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
-/* Header User */
-.medisys-header-user {
+/* Centro header - Role badge */
+.medisys-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.medisys-role-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.medisys-role-badge {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-transform: capitalize;
+    box-shadow: var(--medisys-shadow-sm);
+}
+
+.medisys-role-badge i {
+    font-size: 1rem;
+}
+
+/* Colores específicos para roles */
+.medisys-role-admin {
+    background: linear-gradient(135deg, var(--medisys-admin), rgba(124, 58, 237, 0.8));
+}
+
+.medisys-role-doctor {
+    background: linear-gradient(135deg, var(--medisys-doctor), rgba(5, 150, 105, 0.8));
+}
+
+.medisys-role-patient {
+    background: linear-gradient(135deg, var(--medisys-patient), rgba(37, 99, 235, 0.8));
+}
+
+.medisys-role-receptionist {
+    background: linear-gradient(135deg, var(--medisys-receptionist), rgba(217, 119, 6, 0.8));
+}
+
+.medisys-role-nurse {
+    background: linear-gradient(135deg, var(--medisys-nurse), rgba(219, 39, 119, 0.8));
+}
+
+/* Reloj */
+.medisys-clock {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-right: 300px;
+    margin-top: -50px;
+}
+
+.medisys-clock .time {
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.medisys-clock .date {
+    font-size: 0.7rem;
+    opacity: 0.8;
+}
+
+/* Usuario header */
+.medisys-user-area {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-width: 280px;
+    justify-content: flex-end;
 }
 
 .medisys-user-info {
+    display: flex;
+    align-items: center;
+}
+
+.medisys-user-details {
+    display: flex;
+    flex-direction: column;
     text-align: right;
-    color: white;
+    gap: 2px;
 }
 
 .medisys-user-name {
-    display: block;
+    color: white;
     font-weight: 600;
-    font-size: 1rem;
-    margin-bottom: 4px;
+    font-size: 0.875rem;
+    line-height: 1;
 }
 
 .medisys-user-role {
-    display: inline-flex;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.75rem;
+    text-transform: capitalize;
+    font-weight: 500;
+}
+
+.medisys-user-status {
+    display: flex;
     align-items: center;
-    gap: 6px;
-    font-size: 0.8rem;
-    padding: 6px 12px;
-    border-radius: var(--medisys-radius-xl);
-    font-weight: 600;
-    background: rgba(255,255,255,0.2);
-    color: white;
-    transition: var(--medisys-transition-normal);
+    justify-content: flex-end;
+    gap: 0.25rem;
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-top: 2px;
 }
 
-/* Colores específicos por rol en header */
-.medisys-role-badge-administrador {
-    background: var(--medisys-administrador) !important;
-    box-shadow: 0 4px 15px rgba(139, 0, 0, 0.3);
+.medisys-status-online {
+    color: #10b981;
+    animation: pulse 2s infinite;
 }
 
-.medisys-role-badge-servicios {
-    background: var(--medisys-servicios) !important;
-    box-shadow: 0 4px 15px rgba(75, 0, 130, 0.3);
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
 }
 
-.medisys-role-badge-medico {
-    background: var(--medisys-medico) !important;
-    box-shadow: 0 4px 15px rgba(46, 139, 87, 0.3);
-}
-
-.medisys-role-badge-paciente {
-    background: var(--medisys-paciente) !important;
-    box-shadow: 0 4px 15px rgba(255, 99, 71, 0.3);
-}
-
-.medisys-role-badge-recepcionista {
-    background: var(--medisys-recepcionista) !important;
-    box-shadow: 0 4px 15px rgba(65, 105, 225, 0.3);
-}
-
-.medisys-role-badge-enfermero {
-    background: var(--medisys-enfermero) !important;
-    box-shadow: 0 4px 15px rgba(147, 112, 219, 0.3);
-}
-
+/* Avatar usuario */
 .medisys-user-avatar {
-    background: rgba(255,255,255,0.1);
+    background: none;
     border: none;
-    color: white;
-    padding: 10px;
-    border-radius: 50%;
-    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     cursor: pointer;
-    transition: var(--medisys-transition-normal);
+    padding: 0.5rem;
+    border-radius: 10px;
+    transition: var(--medisys-transition);
 }
 
 .medisys-user-avatar:hover {
-    background: rgba(255,255,255,0.2);
-    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.1);
 }
 
-/* =============================================
-   DROPDOWN MEJORADO
-   =============================================*/
-.medisys-dropdown-menu {
-    border: none;
-    box-shadow: var(--medisys-shadow-lg);
-    border-radius: var(--medisys-radius-lg);
-    padding: 15px 0;
-    background: white;
+.medisys-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.1rem;
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(10px);
-    min-width: 240px;
-    margin-top: 10px;
+}
+
+.medisys-dropdown-arrow {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.75rem;
+    transition: var(--medisys-transition);
+}
+
+.medisys-user-avatar:hover .medisys-dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+/* Dropdown usuario */
+.medisys-user-dropdown {
+    min-width: 260px;
+    border: none;
+    border-radius: 12px;
+    box-shadow: var(--medisys-shadow-lg);
+    padding: 0;
+    overflow: hidden;
+    margin-top: 0.5rem;
+    background: white;
+}
+
+.medisys-dropdown-header {
+    background: linear-gradient(135deg, var(--medisys-primary), var(--medisys-secondary));
+    color: white;
+    padding: 1.25rem;
+    border: none;
+}
+
+.medisys-dropdown-user {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.medisys-dropdown-avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.25rem;
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.medisys-dropdown-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.medisys-dropdown-name {
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1;
+}
+
+.medisys-dropdown-role {
+    font-size: 0.8rem;
+    opacity: 0.9;
+    text-transform: capitalize;
+    margin-top: 2px;
 }
 
 .medisys-dropdown-item {
-    padding: 12px 20px;
+    padding: 0.75rem 1.25rem;
     display: flex;
     align-items: center;
-    gap: 12px;
-    color: var(--medisys-primary);
-    transition: var(--medisys-transition-fast);
-    border-radius: 0;
+    gap: 0.75rem;
+    transition: var(--medisys-transition);
+    color: var(--medisys-gray-700);
     text-decoration: none;
+    font-size: 0.875rem;
 }
 
 .medisys-dropdown-item:hover {
-    background: linear-gradient(90deg, rgba(52, 152, 219, 0.1), rgba(52, 152, 219, 0.05));
-    color: var(--medisys-secondary);
-    transform: translateX(5px);
+    background: var(--medisys-gray-50);
+    color: var(--medisys-primary);
+    transform: translateX(4px);
 }
 
 .medisys-dropdown-item i {
     width: 18px;
     text-align: center;
-    font-size: 1rem;
+    font-size: 0.875rem;
 }
 
-.medisys-logout-item:hover {
-    background: linear-gradient(90deg, rgba(231, 76, 60, 0.1), rgba(231, 76, 60, 0.05));
-    color: var(--medisys-accent);
+.medisys-logout {
+    color: var(--medisys-danger) !important;
 }
 
-.medisys-dropdown-divider {
-    margin: 10px 0;
-    border-color: rgba(0,0,0,0.1);
+.medisys-logout:hover {
+    background: rgba(220, 38, 38, 0.1) !important;
+    color: var(--medisys-danger) !important;
 }
 
-/* =============================================
-   SIDEBAR INTELIGENTE
-   =============================================*/
+.medisys-icon-primary { color: var(--medisys-primary); }
+.medisys-icon-warning { color: var(--medisys-warning); }
+.medisys-icon-info { color: var(--medisys-info); }
+
+/* ===== SIDEBAR ===== */
 .medisys-sidebar {
     position: fixed;
     top: var(--medisys-header-height);
     left: 0;
     width: var(--medisys-sidebar-width);
     height: calc(100vh - var(--medisys-header-height));
-    background: var(--medisys-primary);
-    transition: var(--medisys-transition-normal);
-    z-index: 1000;
+    background: white;
+    box-shadow: var(--medisys-shadow-md);
+    z-index: 1020;
     overflow-y: auto;
     overflow-x: hidden;
+    transition: var(--medisys-transition);
+    border-right: 1px solid var(--medisys-gray-200);
+}
+
+.medisys-sidebar.collapsed {
+    width: var(--medisys-sidebar-collapsed);
 }
 
 .medisys-sidebar::-webkit-scrollbar {
-    width: 6px;
+    width: 4px;
 }
 
 .medisys-sidebar::-webkit-scrollbar-track {
-    background: rgba(255,255,255,0.1);
+    background: var(--medisys-gray-100);
 }
 
 .medisys-sidebar::-webkit-scrollbar-thumb {
-    background: rgba(255,255,255,0.3);
-    border-radius: 3px;
+    background: var(--medisys-gray-300);
+    border-radius: 2px;
 }
 
-.medisys-sidebar::-webkit-scrollbar-thumb:hover {
-    background: rgba(255,255,255,0.5);
-}
-
-/* Sidebar colapsado */
-.medisys-sidebar.medisys-collapsed {
-    width: var(--medisys-sidebar-collapsed-width);
-}
-
-.medisys-sidebar.medisys-collapsed .medisys-sidebar-user {
-    padding: 20px 10px;
-}
-
-.medisys-sidebar.medisys-collapsed .medisys-role-indicator {
-    padding: 15px 5px;
-}
-
-.medisys-sidebar.medisys-collapsed .medisys-role-title,
-.medisys-sidebar.medisys-collapsed .medisys-role-description,
-.medisys-sidebar.medisys-collapsed .medisys-user-details,
-.medisys-sidebar.medisys-collapsed .medisys-user-status {
-    display: none;
-}
-
-.medisys-sidebar.medisys-collapsed .medisys-user-avatar-large {
-    width: 50px;
-    height: 50px;
-    font-size: 1.5rem;
-}
-
-.medisys-sidebar.medisys-collapsed .medisys-menu-header span,
-.medisys-sidebar.medisys-collapsed .medisys-menu-link span,
-.medisys-sidebar.medisys-collapsed .medisys-menu-badge {
-    display: none;
-}
-
-.medisys-sidebar.medisys-collapsed .medisys-menu-link {
-    justify-content: center;
-    padding: 14px 0;
-}
-
-.medisys-sidebar.medisys-collapsed .medisys-menu-link i {
-    margin-right: 0;
-}
-
+/* Sidebar content */
 .medisys-sidebar-content {
     padding: 0;
+    height: 100%;
 }
 
-/* Sidebar User Section */
+/* Usuario sidebar */
 .medisys-sidebar-user {
-    padding: 25px 20px;
-    border-bottom: 2px solid rgba(255,255,255,0.1);
-    margin-bottom: 20px;
-    transition: var(--medisys-transition-normal);
+    padding: 1.5rem;
+    text-align: center;
+    background: var(--medisys-gray-50);
+    border-bottom: 1px solid var(--medisys-gray-200);
+    transition: var(--medisys-transition);
 }
 
-.medisys-role-indicator {
-    padding: 20px;
-    border-radius: var(--medisys-radius-lg);
-    text-align: center;
-    margin-bottom: 20px;
+.medisys-sidebar.collapsed .medisys-sidebar-user {
+    padding: 1rem 0.5rem;
+}
+
+.medisys-sidebar-avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    margin: 0 auto 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
     color: white;
-    position: relative;
-    overflow: hidden;
-    transition: var(--medisys-transition-normal);
-    border: 2px solid rgba(255,255,255,0.2);
+    box-shadow: var(--medisys-shadow-md);
+    transition: var(--medisys-transition);
 }
 
-.medisys-role-indicator::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
-    transform: rotate(45deg);
-    transition: var(--medisys-transition-slow);
-    opacity: 0;
-}
-
-.medisys-role-indicator:hover::before {
-    opacity: 1;
-    animation: shimmer 1.5s ease-in-out;
-}
-
-@keyframes shimmer {
-    0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-    100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-}
-
-/* Gradientes por rol */
-.medisys-role-administrador {
-    background: var(--medisys-administrador-gradient);
-    border-color: rgba(139, 0, 0, 0.4);
-}
-
-.medisys-role-servicios {
-    background: var(--medisys-servicios-gradient);
-    border-color: rgba(75, 0, 130, 0.4);
-}
-
-.medisys-role-medico {
-    background: var(--medisys-medico-gradient);
-    border-color: rgba(46, 139, 87, 0.4);
-}
-
-.medisys-role-paciente {
-    background: var(--medisys-paciente-gradient);
-    border-color: rgba(255, 99, 71, 0.4);
-}
-
-.medisys-role-recepcionista {
-    background: var(--medisys-recepcionista-gradient);
-    border-color: rgba(65, 105, 225, 0.4);
-}
-
-.medisys-role-enfermero {
-    background: var(--medisys-enfermero-gradient);
-    border-color: rgba(147, 112, 219, 0.4);
-}
-
-.medisys-role-icon {
-    margin-bottom: 10px;
-    display: block;
-}
-
-.medisys-role-info {
-    text-align: center;
-}
-
-.medisys-role-title {
+.medisys-sidebar.collapsed .medisys-sidebar-avatar {
+    width: 40px;
+    height: 40px;
     font-size: 1.2rem;
-    font-weight: 700;
-    margin: 10px 0 8px 0;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: var(--medisys-transition-normal);
+    margin-bottom: 0.5rem;
 }
 
-.medisys-role-description {
-    font-size: 0.85rem;
-    opacity: 0.9;
-    margin: 0;
-    line-height: 1.4;
-    transition: var(--medisys-transition-normal);
-}
-
-.medisys-user-profile-section {
-    text-align: center;
-    transition: var(--medisys-transition-normal);
-}
-
-.medisys-user-avatar-large {
-    width: 80px;
-    height: 80px;
-    margin: 0 auto 15px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.2));
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.5rem;
-    color: white;
-    border: 3px solid rgba(255,255,255,0.2);
-    transition: var(--medisys-transition-normal);
-}
-
-.medisys-user-avatar-large:hover {
-    transform: scale(1.05);
-    border-color: rgba(255,255,255,0.4);
-}
-
-.medisys-user-details {
-    transition: var(--medisys-transition-normal);
-}
-
-.medisys-user-details h6 {
-    color: white;
+.medisys-sidebar-user-info h6 {
+    margin: 0 0 0.25rem 0;
     font-weight: 600;
-    margin-bottom: 5px;
-    font-size: 1rem;
+    color: var(--medisys-gray-700);
+    font-size: 0.9rem;
+    transition: var(--medisys-transition);
 }
 
-.medisys-user-details small {
-    color: #bdc3c7;
-    font-size: 0.85rem;
-    display: block;
-    margin-bottom: 10px;
-}
-
-.medisys-user-status {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 10px;
-    transition: var(--medisys-transition-normal);
-}
-
-.medisys-status-dot {
-    width: 8px;
-    height: 8px;
-    background: var(--medisys-success);
-    border-radius: 50%;
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.2); opacity: 0.7; }
-    100% { transform: scale(1); opacity: 1; }
-}
-
-.medisys-status-text {
-    color: var(--medisys-success);
-    font-size: 0.8rem;
+.medisys-sidebar-user-info small {
+    color: var(--medisys-gray-500);
+    text-transform: capitalize;
+    font-size: 0.75rem;
     font-weight: 500;
 }
 
-/* =============================================
-   MENÚ DE NAVEGACIÓN
-   =============================================*/
-.medisys-sidebar-menu {
+.medisys-sidebar-status {
+    margin-top: 0.5rem;
+    font-size: 0.7rem;
+    color: var(--medisys-success);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+}
+
+.medisys-sidebar.collapsed .medisys-sidebar-user-info h6,
+.medisys-sidebar.collapsed .medisys-sidebar-user-info small,
+.medisys-sidebar.collapsed .medisys-sidebar-status {
+    display: none;
+}
+
+/* Menú sidebar */
+.medisys-menu {
     list-style: none;
-    padding: 0 0 30px 0;
+    padding: 0;
     margin: 0;
 }
 
 .medisys-menu-header {
+    padding: 1.25rem 1.5rem 0.75rem;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--medisys-gray-500);
+    letter-spacing: 0.05em;
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 15px 20px 10px;
-    color: var(--medisys-secondary);
-    font-size: 0.8rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    border-bottom: 1px solid rgba(52, 152, 219, 0.3);
-    margin-bottom: 10px;
-    transition: var(--medisys-transition-normal);
+    gap: 0.5rem;
+    border-bottom: 1px solid var(--medisys-gray-100);
+    margin-bottom: 0.5rem;
+    transition: var(--medisys-transition);
 }
 
-.medisys-menu-header i {
-    font-size: 0.9rem;
+.medisys-sidebar.collapsed .medisys-menu-header {
+    padding: 1rem 0.5rem 0.5rem;
+    justify-content: center;
+}
+
+.medisys-sidebar.collapsed .medisys-menu-header span {
+    display: none;
 }
 
 .medisys-menu-item {
-    margin-bottom: 2px;
-    position: relative;
+    margin: 0.25rem 0;
 }
 
 .medisys-menu-link {
     display: flex;
     align-items: center;
-    padding: 14px 20px;
-    color: #bdc3c7;
+    gap: 0.75rem;
+    padding: 0.875rem 1.5rem;
+    color: var(--medisys-gray-600);
     text-decoration: none;
-    transition: var(--medisys-transition-normal);
-    border-left: 4px solid transparent;
+    transition: var(--medisys-transition);
+    border-radius: 0 25px 25px 0;
+    margin-right: 0.5rem;
     position: relative;
-    overflow: hidden;
+    font-size: 0.875rem;
+    font-weight: 500;
 }
 
-.medisys-menu-link::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 100%;
-    background: linear-gradient(90deg, rgba(52, 152, 219, 0.1), rgba(52, 152, 219, 0.2));
-    transition: var(--medisys-transition-normal);
-    z-index: 0;
-}
-
-.medisys-menu-link:hover::before {
-    width: 100%;
+.medisys-sidebar.collapsed .medisys-menu-link {
+    padding: 0.875rem 0.5rem;
+    justify-content: center;
+    border-radius: 8px;
+    margin: 0.25rem 0.5rem;
 }
 
 .medisys-menu-link:hover {
-    color: var(--medisys-secondary);
-    border-left-color: var(--medisys-secondary);
-    transform: translateX(5px);
-    text-decoration: none;
+    background: var(--medisys-gray-50);
+    color: var(--medisys-primary);
+    transform: translateX(4px);
+    box-shadow: var(--medisys-shadow-sm);
+}
+
+.medisys-sidebar.collapsed .medisys-menu-link:hover {
+    transform: scale(1.05);
 }
 
 .medisys-menu-link.medisys-active {
-    background: rgba(52, 152, 219, 0.2);
-    color: var(--medisys-secondary);
-    border-left-color: var(--medisys-secondary);
+    background: linear-gradient(135deg, var(--medisys-primary), var(--medisys-secondary));
+    color: white;
+    box-shadow: var(--medisys-shadow-md);
     font-weight: 600;
 }
 
 .medisys-menu-link.medisys-active::before {
-    width: 100%;
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: white;
+    border-radius: 0 2px 2px 0;
 }
 
 .medisys-menu-link i {
-    width: 20px;
-    margin-right: 15px;
+    font-size: 1rem;
+    width: 18px;
     text-align: center;
-    font-size: 1.1rem;
-    z-index: 1;
-    position: relative;
-    transition: var(--medisys-transition-normal);
+    transition: var(--medisys-transition);
+}
+
+.medisys-menu-link:hover i {
+    transform: scale(1.1);
 }
 
 .medisys-menu-link span {
-    z-index: 1;
-    position: relative;
-    transition: var(--medisys-transition-normal);
+    transition: var(--medisys-transition);
 }
 
-.medisys-menu-badge {
+.medisys-sidebar.collapsed .medisys-menu-link span {
+    display: none;
+}
+
+.medisys-badge {
     margin-left: auto;
+    background: var(--medisys-primary);
+    color: white;
     font-size: 0.7rem;
-    padding: 4px 8px;
-    border-radius: var(--medisys-radius-md);
+    padding: 0.2rem 0.5rem;
+    border-radius: 10px;
     font-weight: 600;
-    z-index: 1;
-    position: relative;
-    transition: var(--medisys-transition-normal);
+    transition: var(--medisys-transition);
 }
 
-/* Badges por rol */
-.medisys-badge-admin {
-    background: linear-gradient(135deg, var(--medisys-administrador), #DC143C);
-    color: white;
-    box-shadow: 0 2px 8px rgba(139, 0, 0, 0.3);
+.medisys-badge-doctor {
+    background: var(--medisys-doctor);
 }
 
-.medisys-badge-servicios {
-    background: linear-gradient(135deg, var(--medisys-servicios), #6A0DAD);
-    color: white;
-    box-shadow: 0 2px 8px rgba(75, 0, 130, 0.3);
+.medisys-sidebar.collapsed .medisys-badge {
+    display: none;
 }
 
-.medisys-badge-medico {
-    background: linear-gradient(135deg, var(--medisys-medico), #228B22);
-    color: white;
-    box-shadow: 0 2px 8px rgba(46, 139, 87, 0.3);
-}
-
-.medisys-badge-paciente {
-    background: linear-gradient(135deg, var(--medisys-paciente), #FF4500);
-    color: white;
-    box-shadow: 0 2px 8px rgba(255, 99, 71, 0.3);
-}
-
-.medisys-badge-recepcionista {
-    background: linear-gradient(135deg, var(--medisys-recepcionista), #1E90FF);
-    color: white;
-    box-shadow: 0 2px 8px rgba(65, 105, 225, 0.3);
-}
-
-.medisys-badge-enfermero {
-    background: linear-gradient(135deg, var(--medisys-enfermero), #8A2BE2);
-    color: white;
-    box-shadow: 0 2px 8px rgba(147, 112, 219, 0.3);
-}
-
-.medisys-badge-pro {
-    background: linear-gradient(135deg, var(--medisys-warning), #e67e22);
-    color: white;
-    box-shadow: 0 2px 8px rgba(243, 156, 18, 0.3);
-}
-
-.medisys-menu-indicator {
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 4px;
-    height: 0;
-    background: var(--medisys-secondary);
-    border-radius: 2px;
-    transition: var(--medisys-transition-normal);
-}
-
-.medisys-menu-link:hover .medisys-menu-indicator,
-.medisys-menu-link.medisys-active .medisys-menu-indicator {
-    height: 30px;
-}
-
-/* =============================================
-   CONTENIDO PRINCIPAL
-   =============================================*/
-.medisys-main-content {
+/* ===== CONTENIDO PRINCIPAL ===== */
+.medisys-main {
     margin-left: var(--medisys-sidebar-width);
     margin-top: var(--medisys-header-height);
     min-height: calc(100vh - var(--medisys-header-height));
-    background: linear-gradient(135deg, #f8fafc 0%, #e3f2fd 100%);
-    transition: var(--medisys-transition-normal);
+    transition: var(--medisys-transition);
 }
 
-.medisys-main-content.medisys-expanded {
-    margin-left: var(--medisys-sidebar-collapsed-width);
+.medisys-main.sidebar-collapsed {
+    margin-left: var(--medisys-sidebar-collapsed);
 }
 
+/* Content header */
 .medisys-content-header {
     background: white;
-    padding: 25px 30px;
-    border-bottom: 1px solid #dee2e6;
-    margin-bottom: 0;
+    padding: 1.5rem 2rem;
+    margin: 1.5rem;
+    margin-bottom: 1rem;
     box-shadow: var(--medisys-shadow-sm);
+    border-radius: 12px;
+    border-left: 4px solid var(--medisys-primary);
 }
 
 .medisys-breadcrumb-container {
@@ -750,96 +653,140 @@
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 1rem;
 }
 
 .medisys-breadcrumb {
     background: none;
-    margin: 0;
     padding: 0;
-    font-size: 0.9rem;
+    margin: 0;
+    font-size: 0.8rem;
 }
 
-.medisys-breadcrumb-item {
-    display: flex;
-    align-items: center;
-}
-
-.medisys-breadcrumb-link {
-    color: #6c757d;
+.medisys-breadcrumb .breadcrumb-item a {
+    color: var(--medisys-primary);
     text-decoration: none;
-    transition: var(--medisys-transition-fast);
-    display: flex;
-    align-items: center;
-    gap: 5px;
+    transition: var(--medisys-transition);
 }
 
-.medisys-breadcrumb-link:hover {
+.medisys-breadcrumb .breadcrumb-item a:hover {
     color: var(--medisys-secondary);
-    text-decoration: none;
 }
 
 .medisys-page-header {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 1rem;
 }
 
 .medisys-page-title {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     font-weight: 700;
-    color: var(--medisys-primary);
+    color: var(--medisys-gray-700);
     margin: 0;
-    background: linear-gradient(135deg, var(--medisys-primary), var(--medisys-secondary));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
 }
 
-.medisys-role-indicator-small {
+.medisys-page-role {
+    display: flex;
+    align-items: center;
+}
+
+.medisys-role-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
     font-size: 0.75rem;
-    padding: 4px 10px;
-    border-radius: var(--medisys-radius-xl);
     font-weight: 600;
+    text-transform: capitalize;
     color: white;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
 }
 
-/* Colores para role indicator small */
-.medisys-role-indicator-small.medisys-role-administrador {
-    background: var(--medisys-administrador-gradient);
-}
-
-.medisys-role-indicator-small.medisys-role-servicios {
-    background: var(--medisys-servicios-gradient);
-}
-
-.medisys-role-indicator-small.medisys-role-medico {
-    background: var(--medisys-medico-gradient);
-}
-
-.medisys-role-indicator-small.medisys-role-paciente {
-    background: var(--medisys-paciente-gradient);
-}
-
-.medisys-role-indicator-small.medisys-role-recepcionista {
-    background: var(--medisys-recepcionista-gradient);
-}
-
-.medisys-role-indicator-small.medisys-role-enfermero {
-    background: var(--medisys-enfermero-gradient);
-}
-
+/* Content body */
 .medisys-content-body {
-    padding: 30px;
-    animation: fadeInUp 0.6s ease-out;
+    padding: 0 1.5rem 2rem;
 }
 
-@keyframes fadeInUp {
+/* Mensajes */
+.medisys-messages {
+    margin-bottom: 1.5rem;
+}
+
+.medisys-alert {
+    border: none;
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1rem;
+    box-shadow: var(--medisys-shadow-sm);
+    border-left: 4px solid;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.875rem;
+}
+
+.medisys-alert i {
+    font-size: 1.1rem;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .medisys-center {
+        display: none;
+    }
+    
+    .medisys-brand,
+    .medisys-user-area {
+        min-width: auto;
+    }
+    
+    .medisys-subtitle {
+        display: none;
+    }
+    
+    .medisys-user-details {
+        display: none;
+    }
+    
+    .medisys-sidebar {
+        transform: translateX(-100%);
+    }
+    
+    .medisys-sidebar:not(.collapsed) {
+        transform: translateX(0);
+    }
+    
+    .medisys-main {
+        margin-left: 0;
+    }
+    
+    .medisys-content-header {
+        margin: 1rem;
+        padding: 1rem;
+    }
+    
+    .medisys-breadcrumb-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 576px) {
+    .medisys-content-body {
+        padding: 0 1rem 2rem;
+    }
+    
+    .medisys-page-title {
+        font-size: 1.25rem;
+    }
+}
+
+/* ===== ANIMACIONES ===== */
+@keyframes slideIn {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(-10px);
     }
     to {
         opacity: 1;
@@ -847,714 +794,10 @@
     }
 }
 
-/* =============================================
-   MENSAJES Y ALERTAS
-   =============================================*/
-.medisys-messages-container {
-    margin-bottom: 25px;
-}
-
 .medisys-alert {
-    border: none;
-    border-radius: var(--medisys-radius-md);
-    padding: 15px 20px;
-    margin-bottom: 15px;
-    box-shadow: var(--medisys-shadow-sm);
-    border-left: 4px solid;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    animation: slideInRight 0.5s ease-out;
+    animation: slideIn 0.3s ease;
 }
 
-@keyframes slideInRight {
-    from {
-        opacity: 0;
-        transform: translateX(100px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+.medisys-sidebar {
+    animation: slideIn 0.4s ease;
 }
-
-.medisys-alert-content {
-    display: flex;
-   align-items: center;
-   gap: 12px;
-   flex: 1;
-}
-
-.medisys-alert-icon {
-   font-size: 1.2rem;
-   flex-shrink: 0;
-}
-
-.medisys-alert-text {
-   flex: 1;
-   font-weight: 500;
-}
-
-.medisys-alert-close {
-   margin-left: auto;
-   opacity: 0.7;
-   transition: var(--medisys-transition-fast);
-}
-
-.medisys-alert-close:hover {
-   opacity: 1;
-   transform: scale(1.1);
-}
-
-.medisys-alert-success {
-   background: linear-gradient(135deg, #d4edda, #c3e6cb);
-   color: #155724;
-   border-left-color: var(--medisys-success);
-}
-
-.medisys-alert-danger,
-.medisys-alert-error {
-   background: linear-gradient(135deg, #f8d7da, #f5c6cb);
-   color: #721c24;
-   border-left-color: var(--medisys-accent);
-}
-
-.medisys-alert-warning {
-   background: linear-gradient(135deg, #fff3cd, #ffeaa7);
-   color: #856404;
-   border-left-color: var(--medisys-warning);
-}
-
-.medisys-alert-info {
-   background: linear-gradient(135deg, #d1ecf1, #bee5eb);
-   color: #0c5460;
-   border-left-color: var(--medisys-info);
-}
-
-/* =============================================
-  SIDEBAR OVERLAY PARA MOBILE
-  =============================================*/
-.medisys-sidebar-overlay {
-   position: fixed;
-   top: 0;
-   left: 0;
-   width: 100%;
-   height: 100%;
-   background: rgba(0,0,0,0.5);
-   z-index: 999;
-   opacity: 0;
-   visibility: hidden;
-   transition: var(--medisys-transition-normal);
-   backdrop-filter: blur(2px);
-}
-
-.medisys-sidebar-overlay.medisys-show {
-   opacity: 1;
-   visibility: visible;
-}
-
-/* =============================================
-  RESPONSIVE DESIGN
-  =============================================*/
-
-/* Tablets (768px - 992px) */
-@media (max-width: 992px) {
-   .medisys-brand-subtitle {
-       display: none;
-   }
-   
-   .medisys-content-body {
-       padding: 20px;
-   }
-   
-   .medisys-page-title {
-       font-size: 1.5rem;
-   }
-   
-   .medisys-header-container {
-       padding: 0 20px;
-   }
-}
-
-/* Mobile (max-width: 768px) */
-@media (max-width: 768px) {
-   .medisys-sidebar {
-       transform: translateX(-100%);
-       width: var(--medisys-sidebar-width);
-       z-index: 1001;
-   }
-   
-   .medisys-sidebar.medisys-show {
-       transform: translateX(0);
-   }
-   
-   .medisys-main-content {
-       margin-left: 0;
-   }
-   
-   .medisys-main-content.medisys-expanded {
-       margin-left: 0;
-   }
-   
-   .medisys-header-container {
-       padding: 0 15px;
-   }
-   
-   .medisys-user-info {
-       display: none;
-   }
-   
-   .medisys-brand-text {
-       font-size: 1.3rem;
-   }
-   
-   .medisys-content-header {
-       padding: 20px 15px;
-   }
-   
-   .medisys-content-body {
-       padding: 15px;
-   }
-   
-   .medisys-breadcrumb-container {
-       flex-direction: column;
-       align-items: flex-start;
-       gap: 10px;
-   }
-   
-   .medisys-page-title {
-       font-size: 1.3rem;
-   }
-   
-   .medisys-page-header {
-       flex-direction: column;
-       align-items: flex-start;
-       gap: 10px;
-   }
-   
-   .medisys-body.medisys-sidebar-open {
-       overflow: hidden;
-   }
-   
-   /* Ajustes del sidebar en mobile */
-   .medisys-sidebar-user {
-       padding: 20px 15px;
-   }
-   
-   .medisys-role-indicator {
-       padding: 15px;
-   }
-   
-   .medisys-role-title {
-       font-size: 1rem;
-   }
-   
-   .medisys-user-avatar-large {
-       width: 60px;
-       height: 60px;
-       font-size: 2rem;
-   }
-   
-   .medisys-menu-link {
-       padding: 12px 15px;
-   }
-   
-   .medisys-menu-header {
-       padding: 12px 15px 8px;
-   }
-}
-
-/* Mobile Small (max-width: 576px) */
-@media (max-width: 576px) {
-   .medisys-brand-info {
-       gap: 10px;
-   }
-   
-   .medisys-brand-icon {
-       width: 40px;
-       height: 40px;
-       font-size: 1.2rem;
-   }
-   
-   .medisys-brand-text {
-       font-size: 1.1rem;
-   }
-   
-   .medisys-user-avatar {
-       font-size: 1.3rem;
-       padding: 8px;
-   }
-   
-   .medisys-content-header {
-       padding: 15px;
-   }
-   
-   .medisys-content-body {
-       padding: 10px;
-   }
-   
-   .medisys-dropdown-menu {
-       min-width: 200px;
-   }
-   
-   .medisys-alert {
-       padding: 12px 15px;
-       margin-bottom: 10px;
-   }
-   
-   .medisys-alert-content {
-       gap: 8px;
-   }
-   
-   .medisys-page-title {
-       font-size: 1.1rem;
-   }
-   
-   .medisys-role-indicator-small {
-       font-size: 0.7rem;
-       padding: 3px 8px;
-   }
-}
-
-/* =============================================
-  ANIMACIONES Y EFECTOS ADICIONALES
-  =============================================*/
-
-/* Hover effects para cards generales */
-.card {
-   transition: var(--medisys-transition-normal);
-   border: none;
-   box-shadow: var(--medisys-shadow-sm);
-}
-
-.card:hover {
-   transform: translateY(-2px);
-   box-shadow: var(--medisys-shadow-md);
-}
-
-/* Loading animation */
-.medisys-loading {
-   position: relative;
-   overflow: hidden;
-}
-
-.medisys-loading::after {
-   content: '';
-   position: absolute;
-   top: 0;
-   left: -100%;
-   width: 100%;
-   height: 100%;
-   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-   animation: loading 1.5s infinite;
-}
-
-@keyframes loading {
-   0% { left: -100%; }
-   100% { left: 100%; }
-}
-
-/* Entrance animations */
-.medisys-fade-in {
-   animation: fadeIn 0.6s ease-out;
-}
-
-@keyframes fadeIn {
-   from { opacity: 0; }
-   to { opacity: 1; }
-}
-
-.medisys-slide-in-left {
-   animation: slideInLeft 0.6s ease-out;
-}
-
-@keyframes slideInLeft {
-   from {
-       opacity: 0;
-       transform: translateX(-50px);
-   }
-   to {
-       opacity: 1;
-       transform: translateX(0);
-   }
-}
-
-.medisys-slide-in-up {
-   animation: slideInUp 0.6s ease-out;
-}
-
-@keyframes slideInUp {
-   from {
-       opacity: 0;
-       transform: translateY(50px);
-   }
-   to {
-       opacity: 1;
-       transform: translateY(0);
-   }
-}
-
-/* =============================================
-  UTILIDADES Y HELPERS
-  =============================================*/
-
-/* Scroll suave */
-html {
-   scroll-behavior: smooth;
-}
-
-/* Selección de texto personalizada */
-::selection {
-   background: var(--medisys-secondary);
-   color: white;
-}
-
-::-moz-selection {
-   background: var(--medisys-secondary);
-   color: white;
-}
-
-/* Focus styles mejorados */
-*:focus {
-   outline: 2px solid var(--medisys-secondary);
-   outline-offset: 2px;
-}
-
-/* Botones con estilo consistente */
-.btn {
-   border-radius: var(--medisys-radius-sm);
-   font-weight: 500;
-   transition: var(--medisys-transition-normal);
-   border: none;
-   box-shadow: var(--medisys-shadow-sm);
-   padding: 10px 20px;
-}
-
-.btn:hover {
-   transform: translateY(-1px);
-   box-shadow: var(--medisys-shadow-md);
-}
-
-.btn-primary {
-   background: linear-gradient(135deg, var(--medisys-secondary), #2980b9);
-   color: white;
-}
-
-.btn-success {
-   background: linear-gradient(135deg, var(--medisys-success), #229954);
-   color: white;
-}
-
-.btn-danger {
-   background: linear-gradient(135deg, var(--medisys-accent), #c0392b);
-   color: white;
-}
-
-.btn-warning {
-   background: linear-gradient(135deg, var(--medisys-warning), #e67e22);
-   color: white;
-}
-
-.btn-info {
-   background: linear-gradient(135deg, var(--medisys-info), #117a8b);
-   color: white;
-}
-
-/* Estados de loading para botones */
-.btn.medisys-loading {
-   pointer-events: none;
-   opacity: 0.7;
-   position: relative;
-}
-
-.btn.medisys-loading::after {
-   content: '';
-   display: inline-block;
-   width: 16px;
-   height: 16px;
-   margin-left: 8px;
-   border: 2px solid currentColor;
-   border-radius: 50%;
-   border-top-color: transparent;
-   animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-   to { transform: rotate(360deg); }
-}
-
-/* =============================================
-  COMPONENTES ESPECÍFICOS DE MEDISYS
-  =============================================*/
-
-/* Tarjetas de estadísticas del dashboard */
-.medisys-stat-card {
-   background: white;
-   border-radius: var(--medisys-radius-lg);
-   padding: 25px;
-   box-shadow: var(--medisys-shadow-sm);
-   transition: var(--medisys-transition-normal);
-   border: 1px solid rgba(0,0,0,0.05);
-}
-
-.medisys-stat-card:hover {
-   transform: translateY(-3px);
-   box-shadow: var(--medisys-shadow-md);
-}
-
-.medisys-stat-card-icon {
-   width: 60px;
-   height: 60px;
-   border-radius: var(--medisys-radius-md);
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   font-size: 1.5rem;
-   color: white;
-   margin-bottom: 15px;
-}
-
-.medisys-stat-card-title {
-   font-size: 0.9rem;
-   font-weight: 600;
-   color: #6c757d;
-   margin-bottom: 5px;
-   text-transform: uppercase;
-   letter-spacing: 0.5px;
-}
-
-.medisys-stat-card-value {
-   font-size: 2rem;
-   font-weight: 700;
-   color: var(--medisys-primary);
-   margin-bottom: 5px;
-}
-
-.medisys-stat-card-description {
-   font-size: 0.85rem;
-   color: #6c757d;
-}
-
-/* Tabla responsive mejorada */
-.medisys-table-container {
-   background: white;
-   border-radius: var(--medisys-radius-lg);
-   overflow: hidden;
-   box-shadow: var(--medisys-shadow-sm);
-}
-
-.medisys-table {
-   width: 100%;
-   margin: 0;
-}
-
-.medisys-table th {
-   background: linear-gradient(135deg, var(--medisys-primary), var(--medisys-secondary));
-   color: white;
-   font-weight: 600;
-   padding: 15px 20px;
-   border: none;
-   font-size: 0.9rem;
-   text-transform: uppercase;
-   letter-spacing: 0.5px;
-}
-
-.medisys-table td {
-   padding: 15px 20px;
-   border-bottom: 1px solid #f1f3f4;
-   vertical-align: middle;
-}
-
-.medisys-table tr:hover {
-   background: rgba(52, 152, 219, 0.05);
-}
-
-/* Badge de estado */
-.medisys-status-badge {
-   padding: 6px 12px;
-   border-radius: var(--medisys-radius-xl);
-   font-size: 0.8rem;
-   font-weight: 600;
-   text-transform: uppercase;
-   letter-spacing: 0.5px;
-}
-
-.medisys-status-active {
-   background: var(--medisys-success);
-   color: white;
-}
-
-.medisys-status-inactive {
-   background: #6c757d;
-   color: white;
-}
-
-.medisys-status-pending {
-   background: var(--medisys-warning);
-   color: white;
-}
-
-.medisys-status-error {
-   background: var(--medisys-accent);
-   color: white;
-}
-
-/* =============================================
-  SWEETALERT PERSONALIZACIÓN
-  =============================================*/
-.medisys-swal-popup {
-   border-radius: var(--medisys-radius-lg) !important;
-   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
-   box-shadow: var(--medisys-shadow-lg) !important;
-}
-
-.medisys-swal-confirm {
-   border-radius: var(--medisys-radius-sm) !important;
-   font-weight: 500 !important;
-   padding: 10px 25px !important;
-   background: linear-gradient(135deg, var(--medisys-accent), #c0392b) !important;
-   border: none !important;
-}
-
-.medisys-swal-cancel {
-   border-radius: var(--medisys-radius-sm) !important;
-   font-weight: 500 !important;
-   padding: 10px 25px !important;
-   background: linear-gradient(135deg, #6c757d, #5a6268) !important;
-   border: none !important;
-}
-
-.medisys-toast-popup {
-   font-size: 14px !important;
-   border-radius: var(--medisys-radius-md) !important;
-}
-
-/* =============================================
-  PRINT STYLES
-  =============================================*/
-@media print {
-   .medisys-header,
-   .medisys-sidebar,
-   .medisys-sidebar-overlay {
-       display: none !important;
-   }
-   
-   .medisys-main-content {
-       margin: 0 !important;
-       margin-top: 0 !important;
-       background: white !important;
-   }
-   
-   .medisys-content-header {
-       border-bottom: 2px solid #000;
-       box-shadow: none;
-       background: white !important;
-   }
-   
-   .medisys-page-title {
-       color: #000 !important;
-       background: none !important;
-       -webkit-text-fill-color: initial !important;
-   }
-   
-   .medisys-content-body {
-       padding: 20px 0;
-   }
-   
-   .medisys-alert {
-       border: 1px solid #ccc;
-       box-shadow: none;
-   }
-   
-   .card {
-       border: 1px solid #ccc;
-       box-shadow: none;
-   }
-}
-
-
-/* =============================================
-  CLASES DE UTILIDAD ESPECÍFICAS
-  =============================================*/
-
-/* Espaciado */
-.medisys-mt-1 { margin-top: 0.25rem; }
-.medisys-mt-2 { margin-top: 0.5rem; }
-.medisys-mt-3 { margin-top: 1rem; }
-.medisys-mt-4 { margin-top: 1.5rem; }
-.medisys-mt-5 { margin-top: 3rem; }
-
-.medisys-mb-1 { margin-bottom: 0.25rem; }
-.medisys-mb-2 { margin-bottom: 0.5rem; }
-.medisys-mb-3 { margin-bottom: 1rem; }
-.medisys-mb-4 { margin-bottom: 1.5rem; }
-.medisys-mb-5 { margin-bottom: 3rem; }
-
-.medisys-p-1 { padding: 0.25rem; }
-.medisys-p-2 { padding: 0.5rem; }
-.medisys-p-3 { padding: 1rem; }
-.medisys-p-4 { padding: 1.5rem; }
-.medisys-p-5 { padding: 3rem; }
-
-/* Colores de texto */
-.medisys-text-primary { color: var(--medisys-primary); }
-.medisys-text-secondary { color: var(--medisys-secondary); }
-.medisys-text-success { color: var(--medisys-success); }
-.medisys-text-warning { color: var(--medisys-warning); }
-.medisys-text-danger { color: var(--medisys-accent); }
-.medisys-text-info { color: var(--medisys-info); }
-
-/* Fondos */
-.medisys-bg-primary { background-color: var(--medisys-primary); }
-.medisys-bg-secondary { background-color: var(--medisys-secondary); }
-.medisys-bg-success { background-color: var(--medisys-success); }
-.medisys-bg-warning { background-color: var(--medisys-warning); }
-.medisys-bg-danger { background-color: var(--medisys-accent); }
-.medisys-bg-info { background-color: var(--medisys-info); }
-
-/* Texto */
-.medisys-fw-light { font-weight: 300; }
-.medisys-fw-normal { font-weight: 400; }
-.medisys-fw-medium { font-weight: 500; }
-.medisys-fw-semibold { font-weight: 600; }
-.medisys-fw-bold { font-weight: 700; }
-
-.medisys-fs-sm { font-size: 0.875rem; }
-.medisys-fs-md { font-size: 1rem; }
-.medisys-fs-lg { font-size: 1.125rem; }
-.medisys-fs-xl { font-size: 1.25rem; }
-
-/* Bordes redondeados */
-.medisys-rounded-sm { border-radius: var(--medisys-radius-sm); }
-.medisys-rounded-md { border-radius: var(--medisys-radius-md); }
-.medisys-rounded-lg { border-radius: var(--medisys-radius-lg); }
-.medisys-rounded-xl { border-radius: var(--medisys-radius-xl); }
-
-/* Sombras */
-.medisys-shadow-sm { box-shadow: var(--medisys-shadow-sm); }
-.medisys-shadow-md { box-shadow: var(--medisys-shadow-md); }
-.medisys-shadow-lg { box-shadow: var(--medisys-shadow-lg); }
-
-/* Display */
-.medisys-d-none { display: none; }
-.medisys-d-block { display: block; }
-.medisys-d-flex { display: flex; }
-.medisys-d-inline-flex { display: inline-flex; }
-
-/* Flexbox */
-.medisys-justify-center { justify-content: center; }
-.medisys-justify-between { justify-content: space-between; }
-.medisys-justify-around { justify-content: space-around; }
-.medisys-align-center { align-items: center; }
-.medisys-align-start { align-items: flex-start; }
-.medisys-align-end { align-items: flex-end; }
-
-/* Transiciones */
-.medisys-transition-fast { transition: var(--medisys-transition-fast); }
-.medisys-transition-normal { transition: var(--medisys-transition-normal); }
-.medisys-transition-slow { transition: var(--medisys-transition-slow); }
-
-/* =============================================
-  FIN DEL ARCHIVO CSS
-  =============================================*/

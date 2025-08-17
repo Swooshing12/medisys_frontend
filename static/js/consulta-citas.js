@@ -535,381 +535,486 @@ function verConsulta(idCita) {
 }
 
 function mostrarModalDetalle(detalle) {
-   const cita = detalle.cita || {};
-   const paciente = detalle.paciente || {};
-   const doctor = detalle.doctor || {};
-   const sucursal = detalle.sucursal || {};
-   const triaje = detalle.triaje || null;
-   const consulta = detalle.consulta_medica || null;
-   
-   let modalContent = `
-       <div class="modal fade modal-detalle" id="modalDetalleCita" tabindex="-1">
-           <div class="modal-dialog modal-xl">
-               <div class="modal-content">
-                   <div class="modal-header bg-primary text-white">
-                       <h5 class="modal-title">
-                           <i class="fas fa-file-medical"></i>
-                           Detalle Completo de Cita Médica - ID: ${cita.id_cita || 'N/A'}
-                       </h5>
-                       <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                   </div>
-                   <div class="modal-body">
-                       <div class="row">
-                           <!-- COLUMNA IZQUIERDA -->
-                           <div class="col-lg-8">
-                               <!-- Información de la Cita -->
-                               <div class="detail-section">
-                                   <h6><i class="fas fa-calendar-check text-primary"></i> Información de la Cita</h6>
-                                   <div class="row">
-                                       <div class="col-md-6">
-                                           <div class="detail-item">
-                                               <strong>📅 Fecha y Hora:</strong>
-                                               <span class="text-primary fw-bold">${formatDateTime(cita.fecha_hora)}</span>
-                                           </div>
-                                           <div class="detail-item">
-                                               <strong>📋 Estado:</strong>
-                                               ${getEstadoBadgeForModal(cita.estado)}
-                                           </div>
-                                       </div>
-                                       <div class="col-md-6">
-                                           <div class="detail-item">
-                                               <strong>💻 Modalidad:</strong>
-                                               <span class="badge ${cita.modalidad_cita === 'Virtual' ? 'bg-info' : 'bg-secondary'}">
-                                                   <i class="fas fa-${cita.modalidad_cita === 'Virtual' ? 'video' : 'hospital'}"></i>
-                                                   ${cita.modalidad_cita || 'Presencial'}
-                                               </span>
-                                           </div>
-                                           <div class="detail-item">
-                                               <strong>🗓️ Tipo de Cita:</strong>
-                                               <span>${cita.tipo_cita || 'No especificado'}</span>
-                                           </div>
-                                       </div>
-                                   </div>
-                                   
-                                   <div class="detail-item mt-3">
-                                       <strong>🩺 Motivo de la Consulta:</strong>
-                                       <div class="alert alert-light mt-2">
-                                           ${cita.motivo || 'No especificado'}
-                                       </div>
-                                   </div>
-                                   
-                                   ${cita.notas ? `
-                                       <div class="detail-item mt-3">
-                                           <strong>📝 Notas Adicionales:</strong>
-                                           <div class="alert alert-light mt-2">
-                                               ${cita.notas}
-                                           </div>
-                                       </div>
-                                   ` : ''}
-                                   
-                                   ${cita.enlace_virtual ? `
-                                       <div class="detail-item mt-3">
-                                           <strong>🔗 Enlace Virtual:</strong>
-                                           <div class="mt-2">
-                                               <a href="${cita.enlace_virtual}" target="_blank" class="btn btn-info btn-sm">
-                                                   <i class="fas fa-video"></i> Acceder a la consulta virtual
-                                               </a>
-                                           </div>
-                                       </div>
-                                   ` : ''}
-                               </div>
-                               
-                               <!-- Información del Doctor -->
-                               <div class="detail-section">
-                                   <h6><i class="fas fa-user-md text-primary"></i> Médico Tratante</h6>
-                                   <div class="row">
-                                       <div class="col-md-6">
-                                           <div class="detail-item">
-                                               <strong>👨‍⚕️ Doctor:</strong>
-                                               <span class="text-info fw-bold">${doctor.nombres || ''} ${doctor.apellidos || ''}</span>
-                                           </div>
-                                           <div class="detail-item">
-                                               <strong>🎓 Título:</strong>
-                                               <span>${doctor.titulo_profesional || 'No especificado'}</span>
-                                           </div>
-                                       </div>
-                                       <div class="col-md-6">
-                                           <div class="detail-item">
-                                               <strong>🏥 Especialidad:</strong>
-                                               <span class="badge bg-primary">${doctor.especialidad || 'No especificado'}</span>
-                                           </div>
-                                           <div class="detail-item">
-                                               <strong>📍 Sucursal:</strong>
-                                               <span><i class="fas fa-hospital text-info"></i> ${sucursal.nombre || 'No especificado'}</span>
-                                           </div>
-                                       </div>
-                                   </div>
-                                   
-                                   ${sucursal.direccion ? `
-                                       <div class="detail-item mt-2">
-                                           <strong>🗺️ Dirección:</strong>
-                                           <span><i class="fas fa-map-marker-alt text-danger"></i> ${sucursal.direccion}</span>
-                                       </div>
-                                   ` : ''}
-                               </div>
-                               
-                               <!-- Consulta Médica -->
-                               ${consulta ? `
-                                   <div class="detail-section bg-light-success">
-                                       <h6><i class="fas fa-file-medical-alt text-success"></i> Consulta Médica Completada</h6>
-                                       
-                                       ${consulta.motivo_consulta ? `
-                                           <div class="detail-item mb-3">
-                                               <strong>🩺 Motivo de Consulta:</strong>
-                                               <div class="alert alert-info mt-2">${consulta.motivo_consulta}</div>
-                                           </div>
-                                       ` : ''}
-                                       
-                                       ${consulta.sintomatologia ? `
-                                           <div class="detail-item mb-3">
-                                               <strong>🤒 Sintomatología:</strong>
-                                               <div class="alert alert-warning mt-2">
-                                                   <i class="fas fa-thermometer-half"></i>
-                                                   ${consulta.sintomatologia}
-                                               </div>
-                                           </div>
-                                       ` : ''}
-                                       
-                                       ${consulta.diagnostico ? `
-                                           <div class="detail-item mb-3">
-                                               <strong>🔬 Diagnóstico:</strong>
-                                               <div class="alert alert-danger mt-2">
-                                                   <i class="fas fa-diagnoses"></i>
-                                                   <strong>${consulta.diagnostico}</strong>
-                                               </div>
-                                           </div>
-                                       ` : ''}
-                                       
-                                       ${consulta.tratamiento ? `
-                                           <div class="detail-item mb-3">
-                                               <strong>💊 Tratamiento Prescrito:</strong>
-                                               <div class="alert alert-primary mt-2">
-                                                   <i class="fas fa-pills"></i>
-                                                   ${consulta.tratamiento}
-                                               </div>
-                                           </div>
-                                       ` : ''}
-                                       
-                                       ${consulta.observaciones ? `
-                                           <div class="detail-item mb-3">
-                                               <strong>📋 Observaciones Médicas:</strong>
-                                               <div class="alert alert-info mt-2">
-                                                   <i class="fas fa-clipboard-list"></i>
-                                                   ${consulta.observaciones}
-                                               </div>
-                                           </div>
-                                       ` : ''}
-                                       
-                                       ${consulta.fecha_seguimiento ? `
-                                           <div class="detail-item">
-                                               <strong>📅 Próximo Seguimiento:</strong>
-                                               <span class="badge bg-warning text-dark fs-6">
-                                                   <i class="fas fa-calendar-plus"></i>
-                                                   ${formatDate(consulta.fecha_seguimiento)}
-                                               </span>
-                                           </div>
-                                       ` : ''}
-                                   </div>
-                               ` : `
-                                   <div class="detail-section">
-                                       <h6><i class="fas fa-file-medical text-muted"></i> Consulta Médica</h6>
-                                       <div class="alert alert-info">
-                                           <i class="fas fa-info-circle"></i>
-                                           Esta cita aún no tiene una consulta médica registrada.
-                                       </div>
-                                   </div>
-                               `}
-                           </div>
-                           
-                           <!-- COLUMNA DERECHA -->
-                           <div class="col-lg-4">
-                               <!-- Información del Paciente -->
-                               <div class="detail-section bg-light-info">
-                                   <h6><i class="fas fa-user-injured text-info"></i> Datos del Paciente</h6>
-                                   <div class="text-center mb-3">
-                                       <div class="patient-avatar-large">
-                                           <i class="fas fa-user-circle"></i>
-                                       </div>
-                                       <h5 class="text-primary">${paciente.nombres || ''} ${paciente.apellidos || ''}</h5>
-                                       <p class="text-muted">CI: ${paciente.cedula || 'No especificado'}</p>
-                                   </div>
-                                   
-                                   <div class="patient-stats-grid">
-                                       <div class="stat-item">
-                                           <strong>🎂 Edad:</strong>
-                                           <span>${paciente.edad || 0} años</span>
-                                       </div>
-                                       <div class="stat-item">
-                                           <strong>📅 F. Nacimiento:</strong>
-                                           <span>${formatDate(paciente.fecha_nacimiento)}</span>
-                                       </div>
-                                       ${paciente.tipo_sangre ? `
-                                           <div class="stat-item">
-                                               <strong>🩸 Tipo de Sangre:</strong>
-                                               <span class="badge bg-danger">${paciente.tipo_sangre}</span>
-                                           </div>
-                                       ` : ''}
-                                       ${paciente.telefono ? `
-                                           <div class="stat-item">
-                                               <strong>📱 Teléfono:</strong>
-                                               <span>${paciente.telefono}</span>
-                                           </div>
-                                       ` : ''}
-                                   </div>
-                                   
-                                   ${paciente.alergias ? `
-                                       <div class="alert alert-warning mt-3">
-                                           <strong><i class="fas fa-exclamation-triangle"></i> Alergias:</strong><br>
-                                           ${paciente.alergias}
-                                       </div>
-                                   ` : ''}
-                                   
-                                   ${paciente.contacto_emergencia ? `
-                                       <div class="emergency-contact mt-3">
-                                           <h6 class="text-danger"><i class="fas fa-phone-alt"></i> Contacto de Emergencia</h6>
-                                           <p class="mb-1"><strong>${paciente.contacto_emergencia}</strong></p>
-                                           ${paciente.telefono_emergencia ? `
-                                               <p class="mb-0"><i class="fas fa-phone"></i> ${paciente.telefono_emergencia}</p>
-                                           ` : ''}
-                                       </div>
-                                   ` : ''}
-                               </div>
-                               
-                               <!-- Triaje -->
-                               ${triaje ? `
-                                   <div class="detail-section bg-light-warning">
-                                       <h6><i class="fas fa-clipboard-check text-warning"></i> Datos de Triaje</h6>
-                                       
-                                       ${triaje.nivel_urgencia ? `
-                                           <div class="text-center mb-3">
-                                               <span class="badge bg-${getUrgencyColor(triaje.nivel_urgencia)} fs-6">
-                                                   <i class="fas fa-exclamation-triangle"></i>
-                                                   Nivel de Urgencia: ${triaje.nivel_urgencia}
-                                               </span>
-                                           </div>
-                                       ` : ''}
-                                       
-                                       <div class="vital-signs-grid">
-                                           ${triaje.signos_vitales?.peso ? `
-                                               <div class="vital-sign-item">
-                                                   <div class="vital-icon bg-info"><i class="fas fa-weight"></i></div>
-                                                   <div class="vital-info">
-                                                       <div class="vital-value">${triaje.signos_vitales.peso} kg</div>
-                                                       <div class="vital-label">Peso</div>
-                                                   </div>
-                                               </div>
-                                           ` : ''}
-                                           
-                                           ${triaje.signos_vitales?.altura ? `
-                                               <div class="vital-sign-item">
-                                                   <div class="vital-icon bg-primary"><i class="fas fa-ruler-vertical"></i></div>
-                                                   <div class="vital-info">
-                                                       <div class="vital-value">${triaje.signos_vitales.altura} cm</div>
-                                                       <div class="vital-label">Altura</div>
-                                                   </div>
-                                               </div>
-                                           ` : ''}
-                                           
-                                           ${triaje.signos_vitales?.imc ? `
-                                               <div class="vital-sign-item">
-                                                   <div class="vital-icon bg-success"><i class="fas fa-calculator"></i></div>
-                                                   <div class="vital-info">
-                                                       <div class="vital-value">${triaje.signos_vitales.imc}</div>
-                                                       <div class="vital-label">IMC</div>
-                                                   </div>
-                                               </div>
-                                           ` : ''}
-                                           
-                                           ${triaje.signos_vitales?.presion_arterial ? `
-                                               <div class="vital-sign-item">
-                                                   <div class="vital-icon bg-danger"><i class="fas fa-heartbeat"></i></div>
-                                                   <div class="vital-info">
-                                                       <div class="vital-value">${triaje.signos_vitales.presion_arterial}</div>
-                                                       <div class="vital-label">Presión</div>
-                                                   </div>
-                                               </div>
-                                           ` : ''}
-                                           
-                                           ${triaje.signos_vitales?.temperatura ? `
-                                               <div class="vital-sign-item">
-                                                   <div class="vital-icon bg-warning"><i class="fas fa-thermometer-half"></i></div>
-                                                   <div class="vital-info">
-                                                       <div class="vital-value">${triaje.signos_vitales.temperatura}°C</div>
-                                                       <div class="vital-label">Temperatura</div>
-                                                   </div>
-                                               </div>
-                                           ` : ''}
-                                           
-                                           ${triaje.signos_vitales?.frecuencia_cardiaca ? `
-                                               <div class="vital-sign-item">
-                                                   <div class="vital-icon bg-secondary"><i class="fas fa-heart"></i></div>
-                                                   <div class="vital-info">
-                                                       <div class="vital-value">${triaje.signos_vitales.frecuencia_cardiaca} bpm</div>
-                                                       <div class="vital-label">Frecuencia</div>
-                                                   </div>
-                                               </div>
-                                           ` : ''}
-                                       </div>
-                                       
-                                       ${triaje.observaciones ? `
-                                           <div class="mt-3">
-                                               <strong>📝 Observaciones del Triaje:</strong>
-                                               <div class="alert alert-light mt-2">${triaje.observaciones}</div>
-                                           </div>
-                                       ` : ''}
-                                   </div>
-                               ` : `
-                                   <div class="detail-section">
-                                       <h6><i class="fas fa-clipboard text-muted"></i> Triaje</h6>
-                                       <div class="alert alert-secondary">
-                                           <i class="fas fa-info-circle"></i>
-                                           Esta cita no tiene datos de triaje registrados.
-                                       </div>
-                                   </div>
-                               `}
-                           </div>
-                       </div>
-                   </div>
-                   <div class="modal-footer">
-                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                           <i class="fas fa-times"></i>
-                           Cerrar
-                       </button>
-                       <button type="button" class="btn btn-primary" onclick="imprimirDetalle()">
-                           <i class="fas fa-print"></i>
-                           Imprimir
-                       </button>
-                       ${consulta ? `
-                           <button type="button" class="btn btn-success" onclick="descargarReceta()">
-                               <i class="fas fa-prescription"></i>
-                               Descargar Receta
-                           </button>
-                       ` : ''}
-                   </div>
-               </div>
-           </div>
-       </div>
-   `;
-   
-   // Remover modal existente si hay uno
-   const existingModal = document.getElementById('modalDetalleCita');
-   if (existingModal) {
-       existingModal.remove();
-   }
-   
-   // Agregar modal al body
-   document.body.insertAdjacentHTML('beforeend', modalContent);
-   
-   // Mostrar modal
-   const modal = new bootstrap.Modal(document.getElementById('modalDetalleCita'));
-   modal.show();
-   
-   // Limpiar modal al cerrar
-   document.getElementById('modalDetalleCita').addEventListener('hidden.bs.modal', function() {
-       this.remove();
-   });
+    const cita = detalle.cita || {};
+    const paciente = detalle.paciente || {};
+    const doctor = detalle.doctor || {};
+    const sucursal = detalle.sucursal || {};
+    const triaje = detalle.triaje || null;
+    const consulta = detalle.consulta_medica || null;
+    
+    let modalContent = `
+        <div class="modal fade modal-detalle" id="modalDetalleCita" tabindex="-1">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content border-0 shadow">
+                    <!-- ✅ HEADER MEJORADO -->
+                    <div class="modal-header text-white border-0" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        <div class="d-flex align-items-center">
+                            <div class="modal-icon me-3">
+                                <i class="fas fa-file-medical-alt fa-2x"></i>
+                            </div>
+                            <div>
+                                <h5 class="modal-title mb-0 fw-bold">Detalle de Cita Médica</h5>
+                                <small class="opacity-75">ID: ${cita.id_cita || 'N/A'} • ${formatDateTime(cita.fecha_hora)}</small>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <div class="modal-body p-0">
+                        <!-- ✅ RESUMEN RÁPIDO EN CARDS -->
+                        <div class="quick-summary bg-light p-4 border-bottom">
+                            <div class="row g-3">
+                                <div class="col-md-3">
+                                    <div class="summary-card text-center">
+                                        <div class="summary-icon bg-primary text-white rounded-circle mx-auto mb-2" style="width: 50px; height: 50px; line-height: 50px;">
+                                            <i class="fas fa-calendar-alt"></i>
+                                        </div>
+                                        <div class="summary-label small text-muted">FECHA</div>
+                                        <div class="summary-value fw-bold text-dark">${formatDate(cita.fecha_hora)}</div>
+                                        <div class="summary-extra small text-muted">${formatTime(cita.fecha_hora)}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="summary-card text-center">
+                                        <div class="summary-icon bg-success text-white rounded-circle mx-auto mb-2" style="width: 50px; height: 50px; line-height: 50px;">
+                                            <i class="fas fa-user-md"></i>
+                                        </div>
+                                        <div class="summary-label small text-muted">DOCTOR</div>
+                                        <div class="summary-value fw-bold text-dark">${doctor.nombres || ''} ${doctor.apellidos || ''}</div>
+                                        <div class="summary-extra small text-muted">${doctor.especialidad || 'Especialidad'}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="summary-card text-center">
+                                        <div class="summary-icon bg-info text-white rounded-circle mx-auto mb-2" style="width: 50px; height: 50px; line-height: 50px;">
+                                            <i class="fas fa-hospital"></i>
+                                        </div>
+                                        <div class="summary-label small text-muted">SUCURSAL</div>
+                                        <div class="summary-value fw-bold text-dark">${sucursal.nombre || 'No especificado'}</div>
+                                        <div class="summary-extra small text-muted">${cita.modalidad_cita || 'Presencial'}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="summary-card text-center">
+                                        <div class="summary-icon ${getEstadoColorBg(cita.estado)} text-white rounded-circle mx-auto mb-2" style="width: 50px; height: 50px; line-height: 50px;">
+                                            ${getEstadoIcon(cita.estado)}
+                                        </div>
+                                        <div class="summary-label small text-muted">ESTADO</div>
+                                        <div class="summary-value fw-bold text-dark">${cita.estado || 'Sin estado'}</div>
+                                        <div class="summary-extra small text-muted">${cita.tipo_cita || 'Consulta'}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ✅ CONTENIDO PRINCIPAL EN TABS -->
+                        <div class="p-4">
+                            <ul class="nav nav-pills nav-fill mb-4" id="detalleTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="cita-tab" data-bs-toggle="pill" data-bs-target="#cita-content" type="button">
+                                        <i class="fas fa-calendar-check me-2"></i>Información de la Cita
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="paciente-tab" data-bs-toggle="pill" data-bs-target="#paciente-content" type="button">
+                                        <i class="fas fa-user me-2"></i>Paciente
+                                    </button>
+                                </li>
+                                ${triaje ? `
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="triaje-tab" data-bs-toggle="pill" data-bs-target="#triaje-content" type="button">
+                                            <i class="fas fa-clipboard-check me-2"></i>Triaje
+                                        </button>
+                                    </li>
+                                ` : ''}
+                                ${consulta ? `
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="consulta-tab" data-bs-toggle="pill" data-bs-target="#consulta-content" type="button">
+                                            <i class="fas fa-file-medical me-2"></i>Consulta Médica
+                                        </button>
+                                    </li>
+                                ` : ''}
+                            </ul>
+
+                            <!-- ✅ CONTENIDO DE TABS -->
+                            <div class="tab-content" id="detalleTabContent">
+                                <!-- TAB: INFORMACIÓN DE LA CITA -->
+                                <div class="tab-pane fade show active" id="cita-content">
+                                    <div class="row g-4">
+                                        <div class="col-md-6">
+                                            <div class="info-card h-100">
+                                                <h6 class="info-card-title text-dark"><i class="fas fa-info-circle text-primary me-2"></i>Detalles de la Cita</h6>
+                                                <div class="info-grid">
+                                                    <div class="info-item">
+                                                        <span class="info-label text-muted">Fecha y Hora:</span>
+                                                        <span class="info-value text-dark fw-bold">${formatDateTime(cita.fecha_hora)}</span>
+                                                    </div>
+                                                    <div class="info-item">
+                                                        <span class="info-label text-muted">Estado:</span>
+                                                        <span class="badge ${getEstadoBadgeClass(cita.estado)}">${cita.estado}</span>
+                                                    </div>
+                                                    <div class="info-item">
+                                                        <span class="info-label text-muted">Modalidad:</span>
+                                                        <span class="info-value text-dark">${cita.modalidad_cita || 'Presencial'}</span>
+                                                    </div>
+                                                    <div class="info-item">
+                                                        <span class="info-label text-muted">Tipo:</span>
+                                                        <span class="info-value text-dark">${cita.tipo_cita || 'Consulta'}</span>
+                                                    </div>
+                                                    <div class="info-item">
+                                                        <span class="info-label text-muted">Creada:</span>
+                                                        <span class="info-value text-dark">${formatDateTime(cita.fecha_creacion)}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="info-card h-100">
+                                                <h6 class="info-card-title text-dark"><i class="fas fa-user-md text-success me-2"></i>Médico y Ubicación</h6>
+                                                <div class="info-grid">
+                                                    <div class="info-item">
+                                                        <span class="info-label text-muted">Doctor:</span>
+                                                        <span class="info-value fw-bold text-dark">${doctor.nombres} ${doctor.apellidos}</span>
+                                                    </div>
+                                                    <div class="info-item">
+                                                        <span class="info-label text-muted">Título:</span>
+                                                        <span class="info-value text-dark">${doctor.titulo_profesional}</span>
+                                                    </div>
+                                                    <div class="info-item">
+                                                        <span class="info-label text-muted">Especialidad:</span>
+                                                        <span class="badge bg-primary">${doctor.especialidad}</span>
+                                                    </div>
+                                                    <div class="info-item">
+                                                        <span class="info-label text-muted">Sucursal:</span>
+                                                        <span class="info-value text-dark">${sucursal.nombre}</span>
+                                                    </div>
+                                                    <div class="info-item">
+                                                        <span class="info-label text-muted">Dirección:</span>
+                                                        <span class="info-value small text-dark">${sucursal.direccion}</span>
+                                                    </div>
+                                                    ${sucursal.telefono ? `
+                                                        <div class="info-item">
+                                                            <span class="info-label text-muted">Teléfono:</span>
+                                                            <span class="info-value text-dark">${sucursal.telefono}</span>
+                                                        </div>
+                                                    ` : ''}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="info-card">
+                                                <h6 class="info-card-title text-dark"><i class="fas fa-stethoscope text-info me-2"></i>Motivo de la Consulta</h6>
+                                                <div class="motivo-consulta p-3 bg-light rounded text-dark">
+                                                    ${cita.motivo || 'No especificado'}
+                                                </div>
+                                                ${cita.notas ? `
+                                                    <div class="mt-3">
+                                                        <h6 class="small text-muted mb-2">Notas Adicionales:</h6>
+                                                        <div class="notas p-3 bg-warning bg-opacity-10 rounded text-dark">
+                                                            ${cita.notas}
+                                                        </div>
+                                                    </div>
+                                                ` : ''}
+                                                ${cita.enlace_virtual ? `
+                                                    <div class="mt-3">
+                                                        <h6 class="small text-muted mb-2">Enlace Virtual:</h6>
+                                                        <a href="${cita.enlace_virtual}" target="_blank" class="btn btn-info">
+                                                            <i class="fas fa-video me-2"></i>Acceder a la consulta virtual
+                                                        </a>
+                                                    </div>
+                                                ` : ''}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- TAB: PACIENTE -->
+                                <div class="tab-pane fade" id="paciente-content">
+                                    <div class="row g-4">
+                                        <div class="col-md-4">
+                                            <div class="patient-profile text-center">
+                                                <div class="patient-avatar mx-auto mb-3" style="width: 100px; height: 100px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                                    <i class="fas fa-user text-white fa-3x"></i>
+                                                </div>
+                                                <h5 class="fw-bold text-dark">${paciente.nombres} ${paciente.apellidos}</h5>
+                                                <p class="text-muted mb-2">CI: ${paciente.cedula}</p>
+                                                <span class="badge bg-secondary">${paciente.edad || 0} años</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="info-card">
+                                                <h6 class="info-card-title text-dark"><i class="fas fa-id-card text-info me-2"></i>Información Personal</h6>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="info-grid">
+                                                            <div class="info-item">
+                                                                <span class="info-label text-muted">Fecha de Nacimiento:</span>
+                                                                <span class="info-value text-dark">${formatDate(paciente.fecha_nacimiento)}</span>
+                                                            </div>
+                                                            <div class="info-item">
+                                                                <span class="info-label text-muted">Sexo:</span>
+                                                                <span class="info-value text-dark">${paciente.sexo || 'No especificado'}</span>
+                                                            </div>
+                                                            <div class="info-item">
+                                                                <span class="info-label text-muted">Tipo de Sangre:</span>
+                                                                <span class="badge bg-danger">${paciente.tipo_sangre || 'No especificado'}</span>
+                                                            </div>
+                                                            <div class="info-item">
+                                                                <span class="info-label text-muted">Teléfono:</span>
+                                                                <span class="info-value text-dark">${paciente.telefono || 'No especificado'}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        ${paciente.contacto_emergencia ? `
+                                                            <div class="emergency-contact bg-danger bg-opacity-10 p-3 rounded">
+                                                                <h6 class="text-danger small mb-2"><i class="fas fa-phone-alt me-1"></i>Contacto de Emergencia</h6>
+                                                                <div class="fw-bold text-dark">${paciente.contacto_emergencia}</div>
+                                                                <div class="small text-dark">${paciente.telefono_emergencia || ''}</div>
+                                                            </div>
+                                                        ` : ''}
+                                                        ${paciente.numero_seguro ? `
+                                                            <div class="mt-2">
+                                                                <strong class="text-muted">Número de Seguro:</strong>
+                                                                <div class="text-dark">${paciente.numero_seguro}</div>
+                                                            </div>
+                                                        ` : ''}
+                                                    </div>
+                                                </div>
+                                                ${paciente.alergias ? `
+                                                    <div class="mt-3">
+                                                        <div class="alert alert-warning">
+                                                            <h6 class="alert-heading"><i class="fas fa-exclamation-triangle me-2"></i>Alergias Conocidas</h6>
+                                                            <p class="mb-0">${paciente.alergias}</p>
+                                                        </div>
+                                                    </div>
+                                                ` : ''}
+                                                ${paciente.antecedentes_medicos ? `
+                                                    <div class="mt-3">
+                                                        <div class="alert alert-info">
+                                                            <h6 class="alert-heading"><i class="fas fa-file-medical me-2"></i>Antecedentes Médicos</h6>
+                                                            <p class="mb-0">${paciente.antecedentes_medicos}</p>
+                                                        </div>
+                                                    </div>
+                                                ` : ''}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- TAB: TRIAJE -->
+                                ${triaje ? `
+                                    <div class="tab-pane fade" id="triaje-content">
+                                        <div class="row g-4">
+                                            <div class="col-12">
+                                                <div class="info-card">
+                                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                                        <h6 class="info-card-title mb-0 text-dark"><i class="fas fa-clipboard-check text-warning me-2"></i>Evaluación de Triaje</h6>
+                                                        ${triaje.nivel_urgencia ? `
+                                                            <span class="badge ${getUrgencyBadgeClass(triaje.nivel_urgencia)} fs-6">
+                                                                ${triaje.nivel_urgencia}
+                                                            </span>
+                                                        ` : ''}
+                                                    </div>
+                                                    <div class="row g-3">
+                                                        ${generateSignosVitales(triaje.signos_vitales)}
+                                                    </div>
+                                                    ${triaje.observaciones ? `
+                                                        <div class="mt-4">
+                                                            <h6 class="small text-muted mb-2">Observaciones del Triaje:</h6>
+                                                            <div class="observaciones-triaje p-3 bg-light rounded text-dark">
+                                                                ${triaje.observaciones}
+                                                            </div>
+                                                        </div>
+                                                    ` : ''}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ` : ''}
+
+                                <!-- TAB: CONSULTA MÉDICA -->
+                                ${consulta ? `
+                                    <div class="tab-pane fade" id="consulta-content">
+                                        <div class="row g-4">
+                                            <div class="col-12">
+                                                <div class="info-card">
+                                                    <h6 class="info-card-title text-dark"><i class="fas fa-file-medical-alt text-success me-2"></i>Consulta Médica Completada</h6>
+                                                    
+                                                    ${consulta.motivo_consulta ? `
+                                                        <div class="consulta-section mb-4">
+                                                            <h6 class="section-title text-dark">🩺 Motivo de Consulta</h6>
+                                                            <div class="section-content text-dark">${consulta.motivo_consulta}</div>
+                                                        </div>
+                                                    ` : ''}
+                                                    
+                                                    ${consulta.sintomatologia ? `
+                                                        <div class="consulta-section mb-4">
+                                                            <h6 class="section-title text-dark">🤒 Sintomatología</h6>
+                                                            <div class="section-content text-dark">
+                                                                <i class="fas fa-thermometer-half text-warning me-2"></i>
+                                                                ${consulta.sintomatologia}
+                                                            </div>
+                                                        </div>
+                                                    ` : ''}
+                                                    
+                                                    ${consulta.diagnostico ? `
+                                                        <div class="consulta-section mb-4">
+                                                            <h6 class="section-title text-danger">🔬 Diagnóstico</h6>
+                                                            <div class="section-content fw-bold text-dark">
+                                                                <i class="fas fa-diagnoses text-danger me-2"></i>
+                                                                ${consulta.diagnostico}
+                                                            </div>
+                                                        </div>
+                                                    ` : ''}
+                                                    
+                                                    ${consulta.tratamiento ? `
+                                                        <div class="consulta-section mb-4">
+                                                            <h6 class="section-title text-primary">💊 Tratamiento Prescrito</h6>
+                                                            <div class="section-content text-dark">
+                                                                <i class="fas fa-pills text-primary me-2"></i>
+                                                                ${consulta.tratamiento}
+                                                            </div>
+                                                        </div>
+                                                    ` : ''}
+                                                    
+                                                    ${consulta.observaciones ? `
+                                                        <div class="consulta-section mb-4">
+                                                            <h6 class="section-title text-dark">📋 Observaciones Médicas</h6>
+                                                            <div class="section-content text-dark">
+                                                                <i class="fas fa-clipboard-list text-info me-2"></i>
+                                                                ${consulta.observaciones}
+                                                            </div>
+                                                        </div>
+                                                    ` : ''}
+                                                    
+                                                    ${consulta.fecha_seguimiento ? `
+                                                        <div class="next-appointment mt-4 p-3 bg-warning bg-opacity-10 rounded">
+                                                            <div class="d-flex align-items-center">
+                                                                <i class="fas fa-calendar-plus fa-2x text-warning me-3"></i>
+                                                                <div>
+                                                                    <h6 class="mb-1 text-dark">Próximo Seguimiento</h6>
+                                                                    <div class="fw-bold text-dark">${formatDate(consulta.fecha_seguimiento)}</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    ` : ''}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ` : ''}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ✅ FOOTER MEJORADO -->
+                    <div class="modal-footer bg-light border-0">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                            <i class="fas fa-times me-2"></i>Cerrar
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="imprimirDetalle()">
+                            <i class="fas fa-print me-2"></i>Imprimir
+                        </button>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Remover modal existente
+    const existingModal = document.getElementById('modalDetalleCita');
+    if (existingModal) {
+        existingModal.remove();
+    }
+    
+    // Agregar modal al body
+    document.body.insertAdjacentHTML('beforeend', modalContent);
+    
+    // Mostrar modal
+    const modal = new bootstrap.Modal(document.getElementById('modalDetalleCita'));
+    modal.show();
+    
+    // Limpiar modal al cerrar
+    document.getElementById('modalDetalleCita').addEventListener('hidden.bs.modal', function() {
+        this.remove();
+    });
 }
 
+// ✅ FUNCIONES AUXILIARES CORREGIDAS
+function getEstadoColorBg(estado) {
+    const colores = {
+        'Completada': 'bg-success',
+        'Pendiente': 'bg-warning', 
+        'Confirmada': 'bg-info',
+        'Cancelada': 'bg-danger'
+    };
+    return colores[estado] || 'bg-secondary';
+}
+
+function getEstadoBadgeClass(estado) {
+    const clases = {
+        'Completada': 'bg-success',
+        'Pendiente': 'bg-warning text-dark',
+        'Confirmada': 'bg-info',
+        'Cancelada': 'bg-danger'
+    };
+    return clases[estado] || 'bg-secondary';
+}
+function getEstadoIcon(estado) {
+    switch (estado?.toLowerCase()) {
+        case 'completada': return '<i class="fas fa-check-circle"></i>';
+        case 'pendiente': return '<i class="fas fa-clock"></i>';
+        case 'cancelada': return '<i class="fas fa-times-circle"></i>';
+        case 'confirmada': return '<i class="fas fa-calendar-check"></i>';
+        default: return '<i class="fas fa-question-circle"></i>';
+    }
+}
+function getUrgencyBadgeClass(nivel) {
+    const clases = {
+        'Alta': 'bg-danger',
+        'Media': 'bg-warning text-dark',
+        'Baja': 'bg-success'
+    };
+    return clases[nivel] || 'bg-secondary';
+}
+
+function generateSignosVitales(signos) {
+    if (!signos) return '';
+    
+    const vitales = [
+        { key: 'peso', label: 'Peso', unit: 'kg', icon: 'weight', color: 'info' },
+        { key: 'altura', label: 'Altura', unit: 'cm', icon: 'ruler-vertical', color: 'primary' },
+        { key: 'imc', label: 'IMC', unit: '', icon: 'calculator', color: 'success' },
+        { key: 'presion_arterial', label: 'Presión', unit: '', icon: 'heartbeat', color: 'danger' },
+        { key: 'temperatura', label: 'Temperatura', unit: '°C', icon: 'thermometer-half', color: 'warning' },
+        { key: 'frecuencia_cardiaca', label: 'Freq. Cardíaca', unit: 'bpm', icon: 'heart', color: 'secondary' }
+    ];
+    
+    return vitales.map(vital => {
+        if (signos[vital.key]) {
+            return `
+                <div class="col-md-4">
+                    <div class="vital-card text-center p-3 border rounded">
+                        <div class="vital-icon text-${vital.color} mb-2">
+                            <i class="fas fa-${vital.icon} fa-2x"></i>
+                        </div>
+                        <div class="vital-value h4 mb-1 text-dark">${signos[vital.key]}${vital.unit}</div>
+                        <div class="vital-label small text-muted">${vital.label}</div>
+                    </div>
+                </div>
+            `;
+        }
+        return '';
+    }).join('');
+}
+
+function formatTime(dateTimeString) {
+    if (!dateTimeString) return '--:--';
+    const date = new Date(dateTimeString);
+    return date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+}
 // Funciones auxiliares
 function formatDateTime(dateTimeString) {
    if (!dateTimeString) return 'No especificado';

@@ -134,7 +134,7 @@
 }
 
 .detail-item strong {
-    color: #495057;
+    color: #000000;
     font-size: 0.9rem;
     margin-bottom: 4px;
 }
@@ -431,289 +431,6 @@
    animation: slideInUp 0.5s ease-out;
 }
 
-/* Modal personalizado para detalles */
-.modal-detalle {
-   z-index: 1060;
-}
-
-.modal-detalle .modal-dialog {
-   max-width: 900px;
-}
-
-.modal-detalle .modal-header {
-   background: linear-gradient(135deg, #007bff, #0056b3);
-   color: white;
-   border-radius: 15px 15px 0 0;
-}
-
-.modal-detalle .modal-body {
-   padding: 30px;
-}
-
-.detalle-section {
-   margin-bottom: 25px;
-   padding: 20px;
-   background: #f8f9fa;
-   border-radius: 10px;
-   border-left: 4px solid #007bff;
-}
-
-.detalle-section h6 {
-   color: #007bff;
-   margin-bottom: 15px;
-   font-weight: 600;
-   display: flex;
-   align-items: center;
-   gap: 8px;
-}
-
-.detalle-grid {
-   display: grid;
-   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-   gap: 15px;
-}
-
-.detalle-item {
-   display: flex;
-   flex-direction: column;
-   gap: 5px;
-}
-
-.detalle-label {
-   font-weight: 600;
-   color: #495057;
-   font-size: 0.9rem;
-}
-
-.detalle-value {
-   color: #6c757d;
-   font-size: 1rem;
-}
-
-.signos-vitales {
-   display: grid;
-   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-   gap: 15px;
-}
-
-.signo-vital {
-   text-align: center;
-   padding: 15px;
-   background: white;
-   border-radius: 8px;
-   border: 1px solid #e9ecef;
-}
-
-.signo-valor {
-   font-size: 1.5rem;
-   font-weight: 700;
-   color: #007bff;
-   margin-bottom: 5px;
-}
-
-.signo-label {
-   font-size: 0.8rem;
-   color: #6c757d;
-   text-transform: uppercase;
-   letter-spacing: 0.5px;
-}
-
-/* ===== MEJORAS PARA EL MODAL ===== */
-
-.modal-xl {
-    max-width: 1200px;
-}
-
-.detalle-section {
-    margin-bottom: 25px;
-    padding: 20px;
-    background: #ffffff;
-    border-radius: 12px;
-    border: 1px solid #e9ecef;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-}
-
-.detalle-section h6 {
-    color: #495057;
-    margin-bottom: 20px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #f8f9fa;
-}
-
-.detalle-value-box {
-    background: #f8f9fa;
-    padding: 12px 15px;
-    border-radius: 8px;
-    border-left: 4px solid #007bff;
-    font-size: 0.95rem;
-    line-height: 1.5;
-    color: #495057;
-}
-
-.detalle-value-box.diagnostico {
-    border-left-color: #dc3545;
-    background: #fff5f5;
-}
-
-.detalle-value-box.tratamiento {
-    border-left-color: #007bff;
-    background: #f0f8ff;
-}
-
-/* Información del Paciente */
-.patient-info {
-    background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
-    border: 1px solid #bbdefb;
-}
-
-.patient-summary {
-    text-align: center;
-    padding: 15px;
-}
-
-.patient-avatar {
-    font-size: 3rem;
-    color: #007bff;
-    margin-bottom: 10px;
-}
-
-.patient-name {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: #495057;
-    margin-bottom: 5px;
-}
-
-.patient-cedula {
-    color: #6c757d;
-    font-size: 0.9rem;
-    margin-bottom: 15px;
-}
-
-.patient-stats {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.stat {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(255,255,255,0.8);
-    padding: 8px 12px;
-    border-radius: 6px;
-}
-
-.stat-label {
-    font-size: 0.85rem;
-    color: #6c757d;
-    font-weight: 500;
-}
-
-.stat-value {
-    font-weight: 600;
-    color: #495057;
-}
-
-.blood-type {
-    background: #dc3545;
-    color: white;
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-size: 0.8rem;
-}
-
-.emergency-contact {
-    background: #fff3cd;
-    padding: 15px;
-    border-radius: 8px;
-    border: 1px solid #ffeaa7;
-}
-
-/* Signos Vitales Compactos */
-.signos-vitales-compact {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.signo-vital-compact {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background: #f8f9fa;
-    padding: 12px;
-    border-radius: 8px;
-    border-left: 3px solid #007bff;
-}
-
-.signo-icon {
-    width: 35px;
-    height: 35px;
-    background: #007bff;
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.9rem;
-}
-
-.signo-info {
-    flex: 1;
-}
-
-.signo-valor {
-    font-size: 1rem;
-    font-weight: 700;
-    color: #495057;
-    line-height: 1;
-}
-
-.signo-label {
-    font-size: 0.75rem;
-    color: #6c757d;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-top: 2px;
-}
-
-.urgency-level {
-    text-align: center;
-}
-
-/* Badges mejorados */
-.badge.fs-6 {
-    font-size: 0.875rem !important;
-    padding: 8px 12px;
-}
-
-/* Alertas pequeñas */
-.alert-sm {
-    padding: 10px 12px;
-    font-size: 0.85rem;
-}
-
-/* Responsive para modal */
-@media (max-width: 992px) {
-    .modal-xl {
-        max-width: 95%;
-        margin: 10px;
-    }
-    
-    .patient-stats {
-        flex-direction: column;
-    }
-    
-    .signos-vitales-compact {
-        grid-template-columns: 1fr;
-    }
-}
 
 /* Tabla mejorada */
 .fecha-hora .fecha {
@@ -833,11 +550,7 @@
     font-size: 0.85rem;
     line-height: 1.3;
 }
-/* ===== ESTILOS ADICIONALES PARA MODAL MEJORADO ===== */
 
-.modal-xl {
-    max-width: 1300px;
-}
 
 .fecha-destacada {
     font-size: 1.1rem;
@@ -855,21 +568,6 @@
     color: #2980b9;
 }
 
-/* Secciones específicas del modal */
-.consulta-section {
-    background: linear-gradient(135deg, #e8f5e8, #f0f9f0);
-    border-left: 4px solid #27ae60;
-}
-
-.triaje-section {
-    background: linear-gradient(135deg, #fff3cd, #fef9e7);
-    border-left: 4px solid #f39c12;
-}
-
-.patient-info {
-    background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
-    border-left: 4px solid #2196f3;
-}
 
 /* Detalle items mejorados */
 .detalle-item {
@@ -935,11 +633,7 @@
     margin-bottom: 15px;
 }
 
-.patient-avatar {
-    font-size: 4rem;
-    color: #3498db;
-    margin-bottom: 15px;
-}
+
 
 .patient-name {
     font-size: 1.3rem;
@@ -1119,4 +813,348 @@
         height: 35px;
         font-size: 0.9rem;
     }
+}
+
+/* ✅ ESTILOS PARA EL MODAL CORREGIDO */
+.modal-detalle .modal-content {
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.quick-summary .summary-card {
+    padding: 1rem;
+    transition: transform 0.2s;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.quick-summary .summary-card:hover {
+    transform: translateY(-2px);
+}
+
+.info-card {
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.info-card-title {
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #f8f9fa;
+    color: #333 !important;
+}
+
+.info-grid .info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f8f9fa;
+}
+
+.info-label {
+    font-weight: 500;
+    color: #6c757d !important;
+    flex: 1;
+}
+
+.info-value {
+    flex: 1;
+    text-align: right;
+    color: #333 !important;
+}
+
+.consulta-section {
+    border-left: 4px solid #007bff;
+    padding-left: 1rem;
+}
+
+.section-title {
+    font-weight: 600;
+    color: #495057 !important;
+    margin-bottom: 0.5rem;
+}
+
+.section-content {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    line-height: 1.6;
+    color: #333 !important;
+}
+
+.vital-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+    background: white;
+}
+
+.vital-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.patient-profile {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 15px;
+}
+
+.nav-pills .nav-link {
+    border-radius: 25px;
+    font-weight: 500;
+    color: #333 !important;
+}
+
+.nav-pills .nav-link.active {
+    background: linear-gradient(135deg, var(--medisys-secondary), #2980b9);
+    color: white !important;
+}
+.nav-pills .nav-link.active {
+   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+   color: white !important;
+}
+
+.summary-value {
+   color: #333 !important;
+   font-size: 0.9rem;
+}
+
+.summary-label {
+   color: #6c757d !important;
+   font-size: 0.75rem;
+   text-transform: uppercase;
+   letter-spacing: 0.5px;
+}
+
+.summary-extra {
+   color: #6c757d !important;
+   font-size: 0.8rem;
+}
+
+/* Asegurar que todo el texto sea visible */
+.text-dark {
+   color: #333 !important;
+}
+
+.text-muted {
+   color: #6c757d !important;
+}
+
+/* Mejorar la legibilidad de las cards */
+.motivo-consulta {
+   background: #f8f9fa !important;
+   color: #333 !important;
+   border: 1px solid #e9ecef;
+}
+
+.notas {
+   background: #fff3cd !important;
+   color: #856404 !important;
+   border: 1px solid #ffeaa7;
+}
+
+.observaciones-triaje {
+   background: #f8f9fa !important;
+   color: #333 !important;
+   border: 1px solid #e9ecef;
+}
+
+/* Estilo para los iconos de estado */
+.fas {
+   color: inherit;
+}
+
+/* Asegurar contraste en badges */
+.badge {
+   font-weight: 600;
+}
+
+.badge.bg-warning {
+   color: #000 !important;
+}
+
+/* Mejorar la apariencia del perfil del paciente */
+.patient-profile h5 {
+   color: #333 !important;
+}
+
+.patient-profile p {
+   color: #6c757d !important;
+}
+
+/* Asegurar que los alerts sean legibles */
+.alert {
+   border-radius: 8px;
+}
+
+.alert-warning {
+   background-color: #fff3cd !important;
+   border-color: #ffeaa7 !important;
+   color: #856404 !important;
+}
+
+.alert-danger {
+   background-color: #f8d7da !important;
+   border-color: #f5c6cb !important;
+   color: #721c24 !important;
+}
+
+.alert-info {
+   background-color: #d1ecf1 !important;
+   border-color: #bee5eb !important;
+   color: #0c5460 !important;
+}
+
+/* Mejorar el emergency contact */
+.emergency-contact {
+   background: #f8d7da !important;
+   color: #721c24 !important;
+   border: 1px solid #f5c6cb;
+   border-radius: 8px;
+}
+
+.emergency-contact h6 {
+   color: #dc3545 !important;
+}
+
+.emergency-contact .fw-bold,
+.emergency-contact .small {
+   color: #721c24 !important;
+}
+
+/* Mejorar la caja de seguimiento */
+.next-appointment {
+   background: #fff3cd !important;
+   border: 1px solid #ffeaa7;
+}
+
+.next-appointment h6,
+.next-appointment .fw-bold {
+   color: #856404 !important;
+}
+
+/* Responsive mejorado */
+@media (max-width: 768px) {
+   .quick-summary .col-md-3 {
+       margin-bottom: 1rem;
+   }
+   
+   .modal-dialog {
+       margin: 0.5rem;
+   }
+   
+   .info-item {
+       flex-direction: column;
+       align-items: flex-start;
+       text-align: left;
+   }
+   
+   .info-value {
+       text-align: left;
+       margin-top: 0.25rem;
+   }
+}
+
+
+/* Estilos inline para mejorar la vista inmediatamente */
+.historial-hero {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.search-card {
+    border: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.search-card .card-header {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: white;
+    border: none;
+    padding: 1.5rem;
+}
+
+.patient-card {
+    border: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+.patient-card .card-header {
+    background: linear-gradient(135deg, #059669, #047857);
+    border: none;
+    padding: 1.5rem;
+}
+
+.historial-card {
+    border: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.historial-card .card-header {
+    background: linear-gradient(135deg, #7c3aed, #6d28d9);
+    color: white;
+    border: none;
+    padding: 1.5rem;
+}
+
+.estado-completada { background: #10b981; color: white; }
+.estado-pendiente { background: #f59e0b; color: white; }
+.estado-cancelada { background: #ef4444; color: white; }
+.estado-confirmada { background: #3b82f6; color: white; }
+.estado-otro { background: #6b7280; color: white; }
+
+.btn-search {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+
+.btn-search:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+}
+
+.stats-container {
+    display: flex;
+    justify-content: space-around;
+    background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+    padding: 1.5rem;
+    border-radius: 12px;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    color: #64748b;
+    font-weight: 500;
 }

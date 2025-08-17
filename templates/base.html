@@ -19,55 +19,133 @@
     
     <!-- CSS personalizado -->
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
     
     {% block extra_css %}{% endblock %}
 </head>
-<body>
-    <!-- ✅ HEADER -->
-    <header class="main-header">
-        <div class="header-container">
+<body class="medisys-app">
+    <!-- ✅ HEADER MÉDICO PROFESIONAL -->
+    <header class="medisys-header">
+        <div class="medisys-header-container">
             <!-- Logo y título -->
-            <div class="header-brand">
-                <button class="sidebar-toggle" id="sidebarToggle">
+            <div class="medisys-brand">
+                <button class="medisys-sidebar-toggle" id="sidebarToggle">
                     <i class="fas fa-bars"></i>
                 </button>
-                <div class="brand-info">
-                    <i class="fas fa-hospital brand-icon"></i>
-                    <span class="brand-text">MediSys</span>
-                    <span class="brand-subtitle">Sistema Hospitalario</span>
+                <div class="medisys-brand-content">
+                    <div class="medisys-logo">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <div class="medisys-brand-text">
+                        <span class="medisys-title">MediSys</span>
+                        <span class="medisys-subtitle">Sistema Hospitalario</span>
+                    </div>
                 </div>
             </div>
             
-            <!-- Información del usuario y dropdown -->
-            <div class="header-user">
-                <div class="user-info">
-                    <span class="user-name">{{ user_data.nombres }} {{ user_data.apellidos }}</span>
-                    <span class="user-role">{{ user_data.rol }}</span>
+            <!-- Centro del header: Badge del rol -->
+            <div class="medisys-center">
+                <div class="medisys-role-info">
+                    <div class="medisys-role-badge medisys-role-{% if user_data.rol == 'Administrador' %}admin{% elif user_data.rol == 'Medico' %}doctor{% elif user_data.rol == 'Paciente' %}patient{% elif user_data.rol == 'Recepcionista' %}receptionist{% elif user_data.rol == 'Enfermero' %}nurse{% else %}default{% endif %}">
+                        {% if user_data.rol == 'Administrador' %}
+                            <i class="fas fa-user-shield"></i>
+                        {% elif user_data.rol == 'Medico' %}
+                            <i class="fas fa-user-md"></i>
+                        {% elif user_data.rol == 'Paciente' %}
+                            <i class="fas fa-user-injured"></i>
+                        {% elif user_data.rol == 'Recepcionista' %}
+                            <i class="fas fa-clipboard-list"></i>
+                        {% elif user_data.rol == 'Enfermero' %}
+                            <i class="fas fa-hand-holding-heart"></i>
+                        {% else %}
+                            <i class="fas fa-user"></i>
+                        {% endif %}
+                        <span>{{ user_data.rol }}</span>
+                    </div>
+                    <div class="medisys-clock" id="currentTime"></div>
+                </div>
+            </div>
+            
+            <!-- Usuario -->
+            <div class="medisys-user-area">
+                <div class="medisys-user-info">
+                    <div class="medisys-user-details">
+                        <span class="medisys-user-name">{{ user_data.nombres }} {{ user_data.apellidos }}</span>
+                        <span class="medisys-user-role">{{ user_data.rol }}</span>
+                        <span class="medisys-user-status">
+                            <i class="fas fa-circle medisys-status-online"></i> En línea
+                        </span>
+                    </div>
                 </div>
                 <div class="dropdown">
-                    <button class="user-avatar dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                        <i class="fas fa-user-circle"></i>
+                    <button class="medisys-user-avatar dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                        <div class="medisys-avatar medisys-role-{% if user_data.rol == 'Administrador' %}admin{% elif user_data.rol == 'Medico' %}doctor{% elif user_data.rol == 'Paciente' %}patient{% elif user_data.rol == 'Recepcionista' %}receptionist{% elif user_data.rol == 'Enfermero' %}nurse{% else %}default{% endif %}">
+                            {% if user_data.rol == 'Administrador' %}
+                                <i class="fas fa-user-shield"></i>
+                            {% elif user_data.rol == 'Medico' %}
+                                <i class="fas fa-user-md"></i>
+                            {% elif user_data.rol == 'Paciente' %}
+                                <i class="fas fa-user-injured"></i>
+                            {% elif user_data.rol == 'Recepcionista' %}
+                                <i class="fas fa-clipboard-list"></i>
+                            {% elif user_data.rol == 'Enfermero' %}
+                                <i class="fas fa-hand-holding-heart"></i>
+                            {% else %}
+                                <i class="fas fa-user"></i>
+                            {% endif %}
+                        </div>
+                        <i class="fas fa-chevron-down medisys-dropdown-arrow"></i>
                     </button>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li>
-                            <a class="dropdown-item" href="#" onclick="showUserInfo()">
-                                <i class="fas fa-id-card"></i>
-                                Información Personal
-                            </a>
-                        </li>
-                        <li>
-                            <!-- Cambiar esta línea en el dropdown: -->
-                        <a class="dropdown-item" href="{% url 'authentication:change_password_logged' %}">
-                            <i class="fas fa-key"></i>
-                            Cambiar Contraseña
-                        </a>
+                    <ul class="dropdown-menu dropdown-menu-end medisys-user-dropdown">
+                        <li class="medisys-dropdown-header">
+                            <div class="medisys-dropdown-user">
+                                <div class="medisys-dropdown-avatar medisys-role-{% if user_data.rol == 'Administrador' %}admin{% elif user_data.rol == 'Medico' %}doctor{% elif user_data.rol == 'Paciente' %}patient{% elif user_data.rol == 'Recepcionista' %}receptionist{% elif user_data.rol == 'Enfermero' %}nurse{% else %}default{% endif %}">
+                                    {% if user_data.rol == 'Administrador' %}
+                                        <i class="fas fa-user-shield"></i>
+                                    {% elif user_data.rol == 'Medico' %}
+                                        <i class="fas fa-user-md"></i>
+                                    {% elif user_data.rol == 'Paciente' %}
+                                        <i class="fas fa-user-injured"></i>
+                                    {% elif user_data.rol == 'Recepcionista' %}
+                                        <i class="fas fa-clipboard-list"></i>
+                                    {% elif user_data.rol == 'Enfermero' %}
+                                        <i class="fas fa-hand-holding-heart"></i>
+                                    {% else %}
+                                        <i class="fas fa-user"></i>
+                                    {% endif %}
+                                </div>
+                                <div class="medisys-dropdown-info">
+                                    <span class="medisys-dropdown-name">{{ user_data.nombres }}</span>
+                                    <span class="medisys-dropdown-role">{{ user_data.rol }}</span>
+                                </div>
+                            </div>
                         </li>
                         <li><hr class="dropdown-divider"></li>
                         <li>
-                            <a class="dropdown-item text-danger" href="#" onclick="confirmLogout()">
+                            <a class="dropdown-item medisys-dropdown-item" href="{% url 'core:user_profile' %}">
+                                <i class="fas fa-id-card medisys-icon-primary"></i>
+                                <span>Información Personal</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item medisys-dropdown-item" href="{% url 'authentication:change_password_logged' %}">
+                                <i class="fas fa-key medisys-icon-warning"></i>
+                                <span>Cambiar Contraseña</span>
+                            </a>
+                        </li>
+                        {% if user_data.rol == 'Administrador' %}
+                        <li>
+                            <a class="dropdown-item medisys-dropdown-item" href="#" onclick="showComingSoon('Configuración del Sistema')">
+                                <i class="fas fa-cogs medisys-icon-info"></i>
+                                <span>Configuración</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <a class="dropdown-item medisys-dropdown-item medisys-logout" href="#" onclick="confirmLogout()">
                                 <i class="fas fa-sign-out-alt"></i>
-                                Cerrar Sesión
+                                <span>Cerrar Sesión</span>
                             </a>
                         </li>
                     </ul>
@@ -76,79 +154,179 @@
         </div>
     </header>
 
-    <!-- ✅ SIDEBAR -->
-    <nav class="main-sidebar" id="mainSidebar">
-        <div class="sidebar-content">
+    <!-- ✅ SIDEBAR MÉDICO -->
+    <nav class="medisys-sidebar medisys-role-{% if user_data.rol == 'Administrador' %}admin{% elif user_data.rol == 'Medico' %}doctor{% elif user_data.rol == 'Paciente' %}patient{% elif user_data.rol == 'Recepcionista' %}receptionist{% elif user_data.rol == 'Enfermero' %}nurse{% else %}default{% endif %}" id="mainSidebar">
+        <div class="medisys-sidebar-content">
             <!-- Usuario en sidebar -->
-            <div class="sidebar-user">
-                <div class="user-avatar-large">
-                    <i class="fas fa-user-circle"></i>
+            <div class="medisys-sidebar-user">
+                <div class="medisys-sidebar-avatar medisys-role-{% if user_data.rol == 'Administrador' %}admin{% elif user_data.rol == 'Medico' %}doctor{% elif user_data.rol == 'Paciente' %}patient{% elif user_data.rol == 'Recepcionista' %}receptionist{% elif user_data.rol == 'Enfermero' %}nurse{% else %}default{% endif %}">
+                    {% if user_data.rol == 'Administrador' %}
+                        <i class="fas fa-user-shield"></i>
+                    {% elif user_data.rol == 'Medico' %}
+                        <i class="fas fa-user-md"></i>
+                    {% elif user_data.rol == 'Paciente' %}
+                        <i class="fas fa-user-injured"></i>
+                    {% elif user_data.rol == 'Recepcionista' %}
+                        <i class="fas fa-clipboard-list"></i>
+                    {% elif user_data.rol == 'Enfermero' %}
+                        <i class="fas fa-hand-holding-heart"></i>
+                    {% else %}
+                        <i class="fas fa-user"></i>
+                    {% endif %}
                 </div>
-                <div class="user-details">
-                    <h6>{{ user_data.nombres }}</h6>
+                <div class="medisys-sidebar-user-info">
+                    <h6>{{ user_data.nombres }} {{ user_data.apellidos }}</h6>
                     <small>{{ user_data.rol }}</small>
+                    <div class="medisys-sidebar-status">
+                        <i class="fas fa-circle medisys-status-online"></i> En línea
+                    </div>
                 </div>
             </div>
 
-            <!-- Menú de navegación -->
-            <ul class="sidebar-menu">
-                <li class="menu-header">
-                    <span>MENÚ PRINCIPAL</span>
+            <!-- Menú -->
+            <ul class="medisys-menu">
+                <li class="medisys-menu-header">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>PANEL PRINCIPAL</span>
                 </li>
                 
-                <li class="menu-item">
-                    <a href="{% url 'core:dashboard' %}" class="menu-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
-                        <i class="fas fa-tachometer-alt"></i>
+                <li class="medisys-menu-item">
+                    <a href="{% url 'core:dashboard' %}" class="medisys-menu-link {% if request.resolver_match.url_name == 'dashboard' %}medisys-active{% endif %}">
+                        <i class="fas fa-home"></i>
                         <span>Dashboard</span>
+                        <span class="medisys-badge">Principal</span>
                     </a>
                 </li>
+
+                <!-- Menú por rol -->
+                {% if user_data.rol == 'Administrador' %}
+                    <li class="medisys-menu-header">
+                        <i class="fas fa-users-cog"></i>
+                        <span>ADMINISTRACIÓN</span>
+                    </li>
+                    <li class="medisys-menu-item">
+                        <a href="#" onclick="showComingSoon('Gestión de Usuarios')" class="medisys-menu-link">
+                            <i class="fas fa-users"></i>
+                            <span>Gestión de Usuarios</span>
+                        </a>
+                    </li>
+                    <li class="medisys-menu-item">
+                        <a href="#" onclick="showComingSoon('Gestión de Roles')" class="medisys-menu-link">
+                            <i class="fas fa-user-shield"></i>
+                            <span>Gestión de Roles</span>
+                        </a>
+                    </li>
+                    <li class="medisys-menu-item">
+                        <a href="#" onclick="showComingSoon('Sucursales')" class="medisys-menu-link">
+                            <i class="fas fa-building"></i>
+                            <span>Sucursales</span>
+                        </a>
+                    </li>
+
+                {% elif user_data.rol == 'Medico' %}
+                    <li class="medisys-menu-header">
+                        <i class="fas fa-user-md"></i>
+                        <span>CONSULTAS MÉDICAS</span>
+                    </li>
+                    <li class="medisys-menu-item">
+                        <a href="{% url 'core:mis_citas_medico' %}" class="medisys-menu-link {% if request.resolver_match.url_name == 'mis_citas_medico' %}medisys-active{% endif %}">
+                            <i class="fas fa-calendar-check"></i>
+                            <span>Mis Citas</span>
+                            <span class="medisys-badge medisys-badge-doctor">Médico</span>
+                        </a>
+                    </li>
+
+                {% elif user_data.rol == 'Recepcionista' %}
+                    <li class="medisys-menu-header">
+                        <i class="fas fa-clipboard-list"></i>
+                        <span>RECEPCIÓN</span>
+                    </li>
+                    <li class="medisys-menu-item">
+                        <a href="#" onclick="showComingSoon('Gestionar Citas')" class="medisys-menu-link">
+                            <i class="fas fa-plus-circle"></i>
+                            <span>Crear Cita</span>
+                        </a>
+                    </li>
+
+                {% elif user_data.rol == 'Enfermero' %}
+                    <li class="medisys-menu-header">
+                        <i class="fas fa-hand-holding-heart"></i>
+                        <span>ENFERMERÍA</span>
+                    </li>
+                    <li class="medisys-menu-item">
+                        <a href="#" onclick="showComingSoon('Triaje')" class="medisys-menu-link">
+                            <i class="fas fa-clipboard-check"></i>
+                            <span>Triaje</span>
+                        </a>
+                    </li>
+
+                {% elif user_data.rol == 'Paciente' %}
+                    <li class="medisys-menu-header">
+                        <i class="fas fa-user-injured"></i>
+                        <span>MIS SERVICIOS</span>
+                    </li>
+                    <li class="medisys-menu-item">
+                        <a href="#" onclick="showComingSoon('Mis Citas')" class="medisys-menu-link">
+                            <i class="fas fa-calendar"></i>
+                            <span>Mis Citas</span>
+                        </a>
+                    </li>
+                {% endif %}
+
+                <!-- Menú común -->
+                <li class="medisys-menu-header">
+                    <i class="fas fa-search"></i>
+                    <span>CONSULTAS</span>
+                </li>
                 
-              <li class="menu-item">
-                    <a href="{% url 'core:historial_clinico' %}" class="menu-link {% if request.resolver_match.url_name == 'historial_clinico' %}active{% endif %}">
+                {% if user_data.rol != 'Paciente' %}
+                <li class="medisys-menu-item">
+                    <a href="{% url 'core:historial_clinico' %}" class="medisys-menu-link {% if request.resolver_match.url_name == 'historial_clinico' %}medisys-active{% endif %}">
                         <i class="fas fa-file-medical"></i>
                         <span>Historial Clínico</span>
                     </a>
                 </li>
-
                 
-                <li class="menu-item">
-    <a href="{% url 'core:consulta_citas' %}" class="menu-link {% if request.resolver_match.url_name == 'consulta_citas' %}active{% endif %}">
-        <i class="fas fa-search-plus"></i>
-        <span>Consulta de Citas</span>
-    </a>
-</li>
-                
-                {% if user_data.tipo_usuario == 'doctor' %}
-                <li class="menu-item">
-                    <a href="{% url 'core:mis_citas_medico' %}" class="menu-link {% if request.resolver_match.url_name == 'mis_citas_medico' %}active{% endif %}" >
-                        <i class="fas fa-stethoscope"></i>
-                        <span>Mis Citas</span>
+                <li class="medisys-menu-item">
+                    <a href="{% url 'core:consulta_citas' %}" class="medisys-menu-link {% if request.resolver_match.url_name == 'consulta_citas' %}medisys-active{% endif %}">
+                        <i class="fas fa-search-plus"></i>
+                        <span>Consulta de Citas</span>
                     </a>
                 </li>
                 {% endif %}
                 
-                <li class="menu-header">
+                <!-- Configuración -->
+                <li class="medisys-menu-header">
+                    <i class="fas fa-cog"></i>
                     <span>CONFIGURACIÓN</span>
                 </li>
                 
-                <!-- Cambiar esta línea en el sidebar: -->
-            <li class="menu-item">
-                <a href="{% url 'authentication:change_password_logged' %}" class="menu-link">
-                    <i class="fas fa-key"></i>
-                    <span>Cambiar Contraseña</span>
-                </a>
-            </li>
-                        </ul>
+                <li class="medisys-menu-item">
+                    <a href="{% url 'authentication:change_password_logged' %}" class="medisys-menu-link">
+                        <i class="fas fa-key"></i>
+                        <span>Cambiar Contraseña</span>
+                    </a>
+                </li>
+
+                {% if user_data.rol == 'Administrador' %}
+                <li class="medisys-menu-item">
+                    <a href="#" onclick="showComingSoon('Reportes')" class="medisys-menu-link">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Reportes</span>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
         </div>
     </nav>
 
     <!-- ✅ CONTENIDO PRINCIPAL -->
-    <main class="main-content" id="mainContent">
+    <main class="medisys-main" id="mainContent">
         <!-- Breadcrumb -->
-        <div class="content-header">
-            <div class="breadcrumb-container">
+        <div class="medisys-content-header">
+            <div class="medisys-breadcrumb-container">
                 <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
+                    <ol class="breadcrumb medisys-breadcrumb">
                         <li class="breadcrumb-item">
                             <a href="{% url 'core:dashboard' %}">
                                 <i class="fas fa-home"></i> Inicio
@@ -157,16 +335,36 @@
                         {% block breadcrumb %}{% endblock %}
                     </ol>
                 </nav>
-                <h1 class="page-title">{% block page_title %}Dashboard{% endblock %}</h1>
+                <div class="medisys-page-header">
+                    <h1 class="medisys-page-title">{% block page_title %}Dashboard{% endblock %}</h1>
+                    <div class="medisys-page-role">
+                        <span class="medisys-role-indicator medisys-role-{% if user_data.rol == 'Administrador' %}admin{% elif user_data.rol == 'Medico' %}doctor{% elif user_data.rol == 'Paciente' %}patient{% elif user_data.rol == 'Recepcionista' %}receptionist{% elif user_data.rol == 'Enfermero' %}nurse{% else %}default{% endif %}">
+                            {% if user_data.rol == 'Administrador' %}
+                                <i class="fas fa-user-shield"></i>
+                            {% elif user_data.rol == 'Medico' %}
+                                <i class="fas fa-user-md"></i>
+                            {% elif user_data.rol == 'Paciente' %}
+                                <i class="fas fa-user-injured"></i>
+                            {% elif user_data.rol == 'Recepcionista' %}
+                                <i class="fas fa-clipboard-list"></i>
+                            {% elif user_data.rol == 'Enfermero' %}
+                                <i class="fas fa-hand-holding-heart"></i>
+                            {% else %}
+                                <i class="fas fa-user"></i>
+                            {% endif %}
+                            Vista: {{ user_data.rol }}
+                        </span>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- Contenido de la página -->
-        <div class="content-body">
+        <!-- Contenido -->
+        <div class="medisys-content-body">
             {% if messages %}
-                <div class="messages-container">
+                <div class="medisys-messages">
                     {% for message in messages %}
-                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show medisys-alert" role="alert">
                             {% if message.tags == 'error' or message.tags == 'danger' %}
                                 <i class="fas fa-exclamation-triangle"></i>
                             {% elif message.tags == 'success' %}
@@ -187,68 +385,24 @@
         </div>
     </main>
 
-    <!-- Bootstrap 5 JS -->
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- JavaScript personalizado -->
-    <script src="{% static 'js/dashboard.js' %}"></script>
-    
+    <!-- JS personalizado -->
+    <script src="{% static 'js/base.js' %}"></script>
+        <!-- Variables globales -->
+    <!-- Variables globales CORREGIDAS -->
+<script>
+    window.DJANGO_URLS = {
+        logout: "{% url 'authentication:logout' %}",
+        userProfile: "{% url 'core:user_profile' %}",
+        dashboard: "{% url 'core:dashboard' %}"
+    };
+    window.CSRF_TOKEN = "{{ csrf_token }}";
+</script>
+
     {% block extra_js %}{% endblock %}
 
-    <!-- JavaScript inline para funciones del template -->
-    <script>
-        // Información personal
-        // Cambiar esta función en base.html
-function showUserInfo() {
-    // Redirigir a la vista en lugar de mostrar modal
-    window.location.href = '{% url "core:user_profile" %}';
-}
 
-        // Confirmar logout
-        function confirmLogout() {
-            Swal.fire({
-                icon: 'question',
-                title: '¿Cerrar Sesión?',
-                text: '¿Está seguro que desea salir del sistema?',
-                showCancelButton: true,
-                confirmButtonColor: '#dc3545',
-                cancelButtonColor: '#6c757d',
-                confirmButtonText: 'Sí, cerrar sesión',
-                cancelButtonText: 'Cancelar'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Crear formulario para enviar POST al logout
-                    const form = document.createElement('form');
-                    form.method = 'POST';
-                    form.action = '{% url "authentication:logout" %}';
-                    
-                    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]');
-                    if (csrfToken) {
-                        form.appendChild(csrfToken.cloneNode(true));
-                    } else {
-                        const csrf = document.createElement('input');
-                        csrf.type = 'hidden';
-                        csrf.name = 'csrfmiddlewaretoken';
-                        csrf.value = '{{ csrf_token }}';
-                        form.appendChild(csrf);
-                    }
-                    
-                    document.body.appendChild(form);
-                    form.submit();
-                }
-            });
-        }
-
-        // Próximamente
-        function showComingSoon(feature) {
-            Swal.fire({
-                icon: 'info',
-                title: 'Próximamente',
-                text: `La funcionalidad "${feature}" estará disponible pronto.`,
-                confirmButtonColor: '#007bff',
-                confirmButtonText: 'Entendido'
-            });
-        }
-    </script>
 </body>
 </html>

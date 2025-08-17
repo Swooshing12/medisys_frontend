@@ -14,70 +14,93 @@
 {% endblock %}
 
 {% block content %}
-<!-- Formulario de Búsqueda -->
-<div class="search-container">
+<!-- Hero Section -->
+<div class="historial-hero">
+    <div class="container-fluid">
+        <h2>🩺 Sistema de Historial Clínico</h2>
+        <p class="mb-0">Consulte de forma rápida y segura el historial médico completo de cualquier paciente</p>
+    </div>
+</div>
+
+<!-- Formulario de Búsqueda Mejorado -->
+<div class="search-container mb-4">
     <div class="search-card card">
         <div class="card-header">
-            <h5 class="mb-0">
-                <i class="fas fa-search"></i>
-                Buscar Paciente por Cédula
-            </h5>
+            <div class="d-flex align-items-center">
+                <div class="me-3">
+                    <i class="fas fa-search fa-2x"></i>
+                </div>
+                <div>
+                    <h5 class="mb-1">🔍 Búsqueda de Pacientes</h5>
+                    <small class="opacity-75">Ingrese la cédula del paciente para consultar su historial médico completo</small>
+                </div>
+            </div>
         </div>
-        <div class="card-body">
+        <div class="card-body p-4">
             <form method="POST" id="historialForm">
                 {% csrf_token %}
                 
                 <!-- Búsqueda Principal -->
-                <div class="search-section">
-                    <div class="row">
-                        <div class="col-md-6">
+                <div class="search-section mb-4">
+                    <div class="row align-items-end">
+                        <div class="col-md-8">
                             <div class="form-group">
-                                <label class="form-label">
-                                    <i class="fas fa-id-card"></i>
-                                    Cédula del Paciente
+                                <label class="form-label fw-bold">
+                                    <i class="fas fa-id-card text-primary me-2"></i>
+                                    🆔 Cédula del Paciente
                                 </label>
-                                <input 
-                                    type="text" 
-                                    name="cedula" 
-                                    class="form-control cedula-input"
-                                    placeholder="Ej: 1234567890"
-                                    value="{{ cedula_buscada|default:'' }}"
-                                    maxlength="10"
-                                    required
-                                    id="inputCedula"
-                                >
-                                <small class="form-text text-muted">
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-text bg-primary text-white">
+                                        <i class="fas fa-user-injured"></i>
+                                    </span>
+                                    <input 
+                                        type="text" 
+                                        name="cedula" 
+                                        class="form-control form-control-lg"
+                                        placeholder="🔢 Ej: 1234567890"
+                                        value="{{ cedula_buscada|default:'' }}"
+                                        maxlength="10"
+                                        required
+                                        id="inputCedula"
+                                    >
+                                </div>
+                                <small class="form-text text-muted mt-2">
+                                    <i class="fas fa-info-circle text-info me-1"></i>
                                     Ingrese la cédula de identidad del paciente (10 dígitos)
                                 </small>
                             </div>
                         </div>
-                        <div class="col-md-6 d-flex align-items-end">
-                            <button type="submit" class="btn-search" id="btnBuscar">
-                                <i class="fas fa-search"></i>
-                                <span>Buscar Historial</span>
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-search w-100" id="btnBuscar">
+                                <i class="fas fa-search me-2"></i>
+                                <span>🔍 Buscar Historial</span>
                             </button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Filtros Avanzados -->
-                <div class="filters-section" id="filtersSection">
-                    <div class="filters-header">
-                        <h6>
-                            <i class="fas fa-filter"></i>
-                            Filtros Avanzados
+                <!-- Filtros Avanzados Mejorados -->
+                <div class="filters-section border rounded-3 p-3" style="background: linear-gradient(135deg, #f8fafc, #e2e8f0);" id="filtersSection">
+                    <div class="filters-header d-flex justify-content-between align-items-center mb-3">
+                        <h6 class="mb-0 fw-bold text-primary">
+                            <i class="fas fa-filter me-2"></i>
+                            🎯 Filtros Avanzados
                         </h6>
-                        <button type="button" class="btn-toggle-filters" id="toggleFilters">
+                        <button type="button" class="btn btn-outline-primary btn-sm btn-toggle-filters" id="toggleFilters">
                             <i class="fas fa-chevron-down"></i>
+                            <span class="ms-1">{% if filtros_aplicados %}Ocultar{% else %}Mostrar{% endif %}</span>
                         </button>
                     </div>
                     
                     <div class="filters-content" id="filtersContent" {% if not filtros_aplicados %}style="display: none;"{% endif %}>
-                        <div class="row">
+                        <div class="row g-3">
                             <!-- Rango de Fechas -->
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label">Fecha Desde</label>
+                                    <label class="form-label fw-semibold">
+                                        <i class="fas fa-calendar-alt text-success me-1"></i>
+                                        📅 Fecha Desde
+                                    </label>
                                     <input 
                                         type="date" 
                                         name="fecha_desde" 
@@ -88,7 +111,10 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label">Fecha Hasta</label>
+                                    <label class="form-label fw-semibold">
+                                        <i class="fas fa-calendar-alt text-success me-1"></i>
+                                        📅 Fecha Hasta
+                                    </label>
                                     <input 
                                         type="date" 
                                         name="fecha_hasta" 
@@ -101,13 +127,16 @@
                             <!-- Especialidad -->
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label">Especialidad</label>
+                                    <label class="form-label fw-semibold">
+                                        <i class="fas fa-stethoscope text-info me-1"></i>
+                                        🩺 Especialidad
+                                    </label>
                                     <select name="id_especialidad" class="form-control" id="selectEspecialidad">
-                                        <option value="">Todas las especialidades</option>
+                                        <option value="">🏥 Todas las especialidades</option>
                                         {% for especialidad in especialidades %}
                                             <option value="{{ especialidad.id_especialidad }}" 
                                                 {% if filtros_aplicados.id_especialidad == especialidad.id_especialidad|stringformat:"s" %}selected{% endif %}>
-                                                {{ especialidad.nombre_especialidad }}
+                                                🩺 {{ especialidad.nombre_especialidad }}
                                             </option>
                                         {% endfor %}
                                     </select>
@@ -117,13 +146,16 @@
                             <!-- Doctor -->
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label">Doctor</label>
+                                    <label class="form-label fw-semibold">
+                                        <i class="fas fa-user-md text-primary me-1"></i>
+                                        👨‍⚕️ Doctor
+                                    </label>
                                     <select name="id_doctor" class="form-control" id="selectDoctor">
-                                        <option value="">Todos los doctores</option>
+                                        <option value="">👩‍⚕️ Todos los doctores</option>
                                         {% for doctor in doctores %}
                                             <option value="{{ doctor.id_doctor }}"
                                                 {% if filtros_aplicados.id_doctor == doctor.id_doctor|stringformat:"s" %}selected{% endif %}>
-                                                {{ doctor.nombres }} {{ doctor.apellidos }}
+                                                👨‍⚕️ {{ doctor.nombres }} {{ doctor.apellidos }}
                                             </option>
                                         {% endfor %}
                                     </select>
@@ -131,29 +163,35 @@
                             </div>
                             
                             <!-- Estado -->
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label">Estado de Cita</label>
+                                    <label class="form-label fw-semibold">
+                                        <i class="fas fa-flag text-warning me-1"></i>
+                                        🚩 Estado de Cita
+                                    </label>
                                     <select name="estado" class="form-control">
-                                        <option value="">Todos los estados</option>
-                                        <option value="Pendiente" {% if filtros_aplicados.estado == 'Pendiente' %}selected{% endif %}>Pendiente</option>
-                                        <option value="Completada" {% if filtros_aplicados.estado == 'Completada' %}selected{% endif %}>Completada</option>
-                                        <option value="Cancelada" {% if filtros_aplicados.estado == 'Cancelada' %}selected{% endif %}>Cancelada</option>
-                                        <option value="Confirmada" {% if filtros_aplicados.estado == 'Confirmada' %}selected{% endif %}>Confirmada</option>
+                                        <option value="">📋 Todos los estados</option>
+                                        <option value="Pendiente" {% if filtros_aplicados.estado == 'Pendiente' %}selected{% endif %}>⏳ Pendiente</option>
+                                        <option value="Completada" {% if filtros_aplicados.estado == 'Completada' %}selected{% endif %}>✅ Completada</option>
+                                        <option value="Cancelada" {% if filtros_aplicados.estado == 'Cancelada' %}selected{% endif %}>❌ Cancelada</option>
+                                        <option value="Confirmada" {% if filtros_aplicados.estado == 'Confirmada' %}selected{% endif %}>✔️ Confirmada</option>
                                     </select>
                                 </div>
                             </div>
                             
                             <!-- Sucursal -->
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-label">Sucursal</label>
+                                    <label class="form-label fw-semibold">
+                                        <i class="fas fa-building text-secondary me-1"></i>
+                                        🏢 Sucursal
+                                    </label>
                                     <select name="id_sucursal" class="form-control">
-                                        <option value="">Todas las sucursales</option>
+                                        <option value="">🏥 Todas las sucursales</option>
                                         {% for sucursal in sucursales %}
                                             <option value="{{ sucursal.id_sucursal }}"
                                                 {% if filtros_aplicados.id_sucursal == sucursal.id_sucursal|stringformat:"s" %}selected{% endif %}>
-                                                {{ sucursal.nombre_sucursal }}
+                                                🏢 {{ sucursal.nombre_sucursal }}
                                             </option>
                                         {% endfor %}
                                     </select>
@@ -161,16 +199,18 @@
                             </div>
                             
                             <!-- Botones de Filtro -->
-                            <div class="col-md-6 d-flex align-items-end">
-                                <div class="filter-buttons">
-                                    <button type="submit" class="btn btn-primary btn-sm">
-                                        <i class="fas fa-filter"></i>
-                                        Aplicar Filtros
-                                    </button>
-                                    <button type="button" class="btn btn-secondary btn-sm" id="clearFilters">
-                                        <i class="fas fa-times"></i>
-                                        Limpiar
-                                    </button>
+                            <div class="col-md-4 d-flex align-items-end">
+                                <div class="filter-buttons w-100">
+                                    <div class="btn-group w-100" role="group">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-filter me-1"></i>
+                                            🎯 Aplicar
+                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary" id="clearFilters">
+                                            <i class="fas fa-eraser me-1"></i>
+                                            🧹 Limpiar
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -228,7 +268,7 @@
                                 </div>
                                 <div class="detail-item">
                                     <strong>Tipo de Sangre:</strong>
-                                    <span class="badge bg-danger">{{ paciente.tipo_sangre|default:"No especificado" }}</span>
+                                    <span class="text-dark">{{ paciente.tipo_sangre|default:"No especificado" }}</span>
                                 </div>
                                 <div class="detail-item">
                                     <strong>Teléfono:</strong>
@@ -271,9 +311,9 @@
 <div class="historial-container">
     <div class="historial-card card">
         <div class="card-header">
-            <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-between align-items-center text-dark">
                 <h5 class="mb-0">
-                    <i class="fas fa-history"></i>
+                    <i class="fas fa-history text-dark"></i>
                     Historial de Citas Médicas
                     {% if filtros_aplicados %}
                         <small class="text-muted">(Filtrado)</small>
@@ -308,22 +348,22 @@
                             {% for cita in citas %}
                             <tr class="cita-row" data-id="{{ cita.id_cita }}">
                                 <td>
-    <div class="fecha-hora">
-        {% if cita.fecha_hora %}
-            <div class="fecha">
-                <!-- ✅ FORMATO MANUAL DD/MM/YYYY -->
-                {{ cita.fecha_hora|slice:"8:10" }}/{{ cita.fecha_hora|slice:"5:7" }}/{{ cita.fecha_hora|slice:":4" }}
-            </div>
-            <div class="hora">
-                <!-- ✅ FORMATO MANUAL HH:MM -->
-                {{ cita.fecha_hora|slice:"11:16" }}
-            </div>
-        {% else %}
-            <div class="fecha">Sin fecha</div>
-            <div class="hora">--:--</div>
-        {% endif %}
-    </div>
-</td>
+                                    <div class="fecha-hora">
+                                        {% if cita.fecha_hora %}
+                                            <div class="fecha">
+                                                <!-- ✅ FORMATO MANUAL DD/MM/YYYY -->
+                                                {{ cita.fecha_hora|slice:"8:10" }}/{{ cita.fecha_hora|slice:"5:7" }}/{{ cita.fecha_hora|slice:":4" }}
+                                            </div>
+                                            <div class="hora">
+                                                <!-- ✅ FORMATO MANUAL HH:MM -->
+                                                {{ cita.fecha_hora|slice:"11:16" }}
+                                            </div>
+                                        {% else %}
+                                            <div class="fecha">Sin fecha</div>
+                                            <div class="hora">--:--</div>
+                                        {% endif %}
+                                    </div>
+                                </td>
                                 <td>
                                     <div class="especialidad">
                                         <i class="fas fa-stethoscope"></i>
