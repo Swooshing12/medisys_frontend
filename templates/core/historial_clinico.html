@@ -1,0 +1,437 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Historial Clínico - MediSys{% endblock %}
+
+{% block page_title %}Historial Clínico{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item active">Historial Clínico</li>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/historial-clinico.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Formulario de Búsqueda -->
+<div class="search-container">
+    <div class="search-card card">
+        <div class="card-header">
+            <h5 class="mb-0">
+                <i class="fas fa-search"></i>
+                Buscar Paciente por Cédula
+            </h5>
+        </div>
+        <div class="card-body">
+            <form method="POST" id="historialForm">
+                {% csrf_token %}
+                
+                <!-- Búsqueda Principal -->
+                <div class="search-section">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <i class="fas fa-id-card"></i>
+                                    Cédula del Paciente
+                                </label>
+                                <input 
+                                    type="text" 
+                                    name="cedula" 
+                                    class="form-control cedula-input"
+                                    placeholder="Ej: 1234567890"
+                                    value="{{ cedula_buscada|default:'' }}"
+                                    maxlength="10"
+                                    required
+                                    id="inputCedula"
+                                >
+                                <small class="form-text text-muted">
+                                    Ingrese la cédula de identidad del paciente (10 dígitos)
+                                </small>
+                            </div>
+                        </div>
+                        <div class="col-md-6 d-flex align-items-end">
+                            <button type="submit" class="btn-search" id="btnBuscar">
+                                <i class="fas fa-search"></i>
+                                <span>Buscar Historial</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filtros Avanzados -->
+                <div class="filters-section" id="filtersSection">
+                    <div class="filters-header">
+                        <h6>
+                            <i class="fas fa-filter"></i>
+                            Filtros Avanzados
+                        </h6>
+                        <button type="button" class="btn-toggle-filters" id="toggleFilters">
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="filters-content" id="filtersContent" {% if not filtros_aplicados %}style="display: none;"{% endif %}>
+                        <div class="row">
+                            <!-- Rango de Fechas -->
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label">Fecha Desde</label>
+                                    <input 
+                                        type="date" 
+                                        name="fecha_desde" 
+                                        class="form-control"
+                                        value="{{ filtros_aplicados.fecha_desde|default:'' }}"
+                                    >
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label">Fecha Hasta</label>
+                                    <input 
+                                        type="date" 
+                                        name="fecha_hasta" 
+                                        class="form-control"
+                                        value="{{ filtros_aplicados.fecha_hasta|default:'' }}"
+                                    >
+                                </div>
+                            </div>
+                            
+                            <!-- Especialidad -->
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label">Especialidad</label>
+                                    <select name="id_especialidad" class="form-control" id="selectEspecialidad">
+                                        <option value="">Todas las especialidades</option>
+                                        {% for especialidad in especialidades %}
+                                            <option value="{{ especialidad.id_especialidad }}" 
+                                                {% if filtros_aplicados.id_especialidad == especialidad.id_especialidad|stringformat:"s" %}selected{% endif %}>
+                                                {{ especialidad.nombre_especialidad }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <!-- Doctor -->
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label">Doctor</label>
+                                    <select name="id_doctor" class="form-control" id="selectDoctor">
+                                        <option value="">Todos los doctores</option>
+                                        {% for doctor in doctores %}
+                                            <option value="{{ doctor.id_doctor }}"
+                                                {% if filtros_aplicados.id_doctor == doctor.id_doctor|stringformat:"s" %}selected{% endif %}>
+                                                {{ doctor.nombres }} {{ doctor.apellidos }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <!-- Estado -->
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label">Estado de Cita</label>
+                                    <select name="estado" class="form-control">
+                                        <option value="">Todos los estados</option>
+                                        <option value="Pendiente" {% if filtros_aplicados.estado == 'Pendiente' %}selected{% endif %}>Pendiente</option>
+                                        <option value="Completada" {% if filtros_aplicados.estado == 'Completada' %}selected{% endif %}>Completada</option>
+                                        <option value="Cancelada" {% if filtros_aplicados.estado == 'Cancelada' %}selected{% endif %}>Cancelada</option>
+                                        <option value="Confirmada" {% if filtros_aplicados.estado == 'Confirmada' %}selected{% endif %}>Confirmada</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <!-- Sucursal -->
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label">Sucursal</label>
+                                    <select name="id_sucursal" class="form-control">
+                                        <option value="">Todas las sucursales</option>
+                                        {% for sucursal in sucursales %}
+                                            <option value="{{ sucursal.id_sucursal }}"
+                                                {% if filtros_aplicados.id_sucursal == sucursal.id_sucursal|stringformat:"s" %}selected{% endif %}>
+                                                {{ sucursal.nombre_sucursal }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <!-- Botones de Filtro -->
+                            <div class="col-md-6 d-flex align-items-end">
+                                <div class="filter-buttons">
+                                    <button type="submit" class="btn btn-primary btn-sm">
+                                        <i class="fas fa-filter"></i>
+                                        Aplicar Filtros
+                                    </button>
+                                    <button type="button" class="btn btn-secondary btn-sm" id="clearFilters">
+                                        <i class="fas fa-times"></i>
+                                        Limpiar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% if paciente %}
+<!-- Información del Paciente -->
+<div class="patient-info-container">
+    <div class="patient-card card">
+        <div class="card-header bg-primary text-white">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                    <i class="fas fa-user-injured"></i>
+                    Información del Paciente
+                </h5>
+                <span class="badge bg-light text-dark">
+                    Cédula: {{ paciente.cedula }}
+                </span>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="patient-details">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="detail-item">
+                                    <strong>Nombre Completo:</strong>
+                                    <span>{{ paciente.nombre_completo }}</span>
+                                </div>
+                                <div class="detail-item">
+                                    <strong>Fecha de Nacimiento:</strong>
+                                    <span>{{ paciente.fecha_nacimiento|date:"d/m/Y" }}</span>
+                                </div>
+                                <div class="detail-item">
+                                    <strong>Sexo:</strong>
+                                    <span>
+                                        {% if paciente.sexo == 'M' %}
+                                            <i class="fas fa-mars text-primary"></i> Masculino
+                                        {% else %}
+                                            <i class="fas fa-venus text-pink"></i> Femenino
+                                        {% endif %}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="detail-item">
+                                    <strong>Edad:</strong>
+                                    <span>{{ paciente.edad }} años</span>
+                                </div>
+                                <div class="detail-item">
+                                    <strong>Tipo de Sangre:</strong>
+                                    <span class="badge bg-danger">{{ paciente.tipo_sangre|default:"No especificado" }}</span>
+                                </div>
+                                <div class="detail-item">
+                                    <strong>Teléfono:</strong>
+                                    <span>{{ paciente.telefono|default:"No especificado" }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        {% if paciente.alergias %}
+                        <div class="alert alert-warning mt-3">
+                            <strong><i class="fas fa-exclamation-triangle"></i> Alergias:</strong>
+                            {{ paciente.alergias }}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="stats-container">
+                        <div class="stat-item">
+                            <div class="stat-number">{{ estadisticas.total_citas }}</div>
+                            <div class="stat-label">Total Citas</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number text-success">{{ estadisticas.citas_completadas }}</div>
+                            <div class="stat-label">Completadas</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number text-warning">{{ estadisticas.citas_pendientes }}</div>
+                            <div class="stat-label">Pendientes</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Historial de Citas -->
+<div class="historial-container">
+    <div class="historial-card card">
+        <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                    <i class="fas fa-history"></i>
+                    Historial de Citas Médicas
+                    {% if filtros_aplicados %}
+                        <small class="text-muted">(Filtrado)</small>
+                    {% endif %}
+                </h5>
+                <div class="historial-actions">
+                    <button class="btn btn-outline-primary btn-sm" onclick="exportarHistorial()">
+                        <i class="fas fa-download"></i>
+                        Exportar
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card-body">
+            {% if tiene_resultados %}
+                <div class="table-responsive">
+                    <table class="table table-historial" id="tablaHistorial">
+                        <thead>
+                            <tr>
+                                <th width="120">Fecha/Hora</th>
+                                <th width="150">Especialidad</th>
+                                <th width="180">Doctor</th>
+                                <th>Motivo</th>
+                                <th width="100">Estado</th>
+                                <th width="80" class="text-center">Triaje</th>
+                                <th width="80" class="text-center">Consulta</th>
+                                <th width="120" class="text-center">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for cita in citas %}
+                            <tr class="cita-row" data-id="{{ cita.id_cita }}">
+                                <td>
+                                    <div class="fecha-hora">
+                                        <!-- ✅ CORREGIR: Usar fecha_hora directamente -->
+                                        {% if cita.fecha_hora %}
+                                            <div class="fecha">
+                                                {{ cita.fecha_hora|slice:":10"|date:"d/m/Y" }}
+                                            </div>
+                                            <div class="hora">
+                                                {{ cita.fecha_hora|slice:"11:19"|time:"H:i" }}
+                                            </div>
+                                        {% else %}
+                                            <div class="fecha">Sin fecha</div>
+                                            <div class="hora">--:--</div>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="especialidad">
+                                        <i class="fas fa-stethoscope"></i>
+                                        {{ cita.especialidad.nombre|default:"Sin especialidad" }}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="doctor-info">
+                                        <div class="nombre">{{ cita.doctor.nombre_completo|default:"Sin doctor" }}</div>
+                                        <small class="titulo">{{ cita.doctor.titulo_profesional|default:"" }}</small>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="motivo">
+                                        {{ cita.motivo|truncatechars:50|default:"Sin motivo especificado" }}
+                                    </div>
+                                </td>
+                                <td>
+                                    <!-- ✅ CORREGIR ESTADOS CON COLORES VISIBLES -->
+                                    {% if cita.estado == 'Completada' %}
+                                        <span class="badge estado-completada">
+                                            <i class="fas fa-check-circle"></i>
+                                            Completada
+                                        </span>
+                                    {% elif cita.estado == 'Pendiente' %}
+                                        <span class="badge estado-pendiente">
+                                            <i class="fas fa-clock"></i>
+                                            Pendiente
+                                        </span>
+                                    {% elif cita.estado == 'Cancelada' %}
+                                        <span class="badge estado-cancelada">
+                                            <i class="fas fa-times-circle"></i>
+                                            Cancelada
+                                        </span>
+                                    {% elif cita.estado == 'Confirmada' %}
+                                        <span class="badge estado-confirmada">
+                                            <i class="fas fa-calendar-check"></i>
+                                            Confirmada
+                                        </span>
+                                    {% else %}
+                                        <span class="badge estado-otro">
+                                            <i class="fas fa-question-circle"></i>
+                                            {{ cita.estado|default:"Sin estado" }}
+                                        </span>
+                                    {% endif %}
+                                </td>
+                                <td class="text-center">
+                                    {% if cita.tiene_triaje %}
+                                        <i class="fas fa-clipboard-check text-success" title="Triaje realizado"></i>
+                                    {% else %}
+                                        <i class="fas fa-clipboard text-muted" title="Sin triaje"></i>
+                                    {% endif %}
+                                </td>
+                                <td class="text-center">
+                                    {% if cita.tiene_consulta %}
+                                        <i class="fas fa-file-medical-alt text-success" title="Consulta completada"></i>
+                                    {% else %}
+                                        <i class="fas fa-file-medical text-muted" title="Sin consulta"></i>
+                                    {% endif %}
+                                </td>
+                                <td class="text-center">
+                                    <div class="action-buttons">
+                                        <button class="btn btn-sm btn-outline-primary btn-ver-detalle" 
+                                                data-cita-id="{{ cita.id_cita }}"
+                                                title="Ver detalles">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        {% if cita.esta_completada %}
+                                        <button class="btn btn-sm btn-outline-success btn-ver-consulta"
+                                                data-cita-id="{{ cita.id_cita }}"
+                                                title="Ver consulta médica">
+                                            <i class="fas fa-file-medical"></i>
+                                        </button>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <div class="empty-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h4 class="empty-title">No se encontraron citas</h4>
+                    <p class="empty-text">
+                        {% if filtros_aplicados %}
+                            No hay citas que coincidan con los filtros aplicados.<br>
+                            Intente modificar los criterios de búsqueda.
+                        {% else %}
+                            El paciente no tiene citas médicas registradas en el sistema.
+                        {% endif %}
+                    </p>
+                    {% if filtros_aplicados %}
+                    <button class="btn btn-primary" id="clearAllFilters">
+                        <i class="fas fa-refresh"></i>
+                        Mostrar Todas las Citas
+                    </button>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/historial-clinico.js' %}"></script>
+{% endblock %}

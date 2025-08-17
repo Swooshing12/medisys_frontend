@@ -1,0 +1,1122 @@
+/* ===== HISTORIAL-CLINICO.CSS ===== */
+
+.search-container {
+    margin-bottom: 30px;
+}
+
+.search-card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.search-card .card-header {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    border-radius: 15px 15px 0 0;
+    padding: 20px;
+}
+
+.search-section {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cedula-input {
+    padding: 12px 15px;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.cedula-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.btn-search {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    border: none;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 200px;
+    justify-content: center;
+}
+
+.btn-search:hover {
+    background: linear-gradient(135deg, #20c997, #17a2b8);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+    color: white;
+}
+
+/* Filtros */
+.filters-section {
+    border-top: 1px solid #e9ecef;
+    padding-top: 20px;
+    margin-top: 20px;
+}
+
+.filters-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+
+.filters-header h6 {
+    margin: 0;
+    color: #6c757d;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-toggle-filters {
+    background: none;
+    border: none;
+    color: #6c757d;
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+.btn-toggle-filters.rotated {
+    transform: rotate(180deg);
+}
+
+.filters-content {
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border: 1px solid #e9ecef;
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+/* Información del Paciente */
+.patient-info-container {
+    margin-bottom: 30px;
+}
+
+.patient-card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.patient-details {
+    padding: 10px 0;
+}
+
+.detail-item {
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-item strong {
+    color: #495057;
+    font-size: 0.9rem;
+    margin-bottom: 4px;
+}
+
+.detail-item span {
+    color: #6c757d;
+    font-size: 1rem;
+}
+
+.stats-container {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border: 2px solid #e9ecef;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #007bff;
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 5px;
+}
+
+/* Historial de Citas */
+.historial-container {
+    margin-bottom: 30px;
+}
+
+.historial-card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.historial-card .card-header {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border-bottom: 2px solid #007bff;
+    padding: 20px;
+    border-radius: 15px 15px 0 0;
+}
+
+.table-historial {
+    margin: 0;
+}
+
+.table-historial th {
+    background: #f8f9fa;
+    color: #495057;
+    font-weight: 600;
+    border-bottom: 2px solid #dee2e6;
+    padding: 15px 12px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.table-historial td {
+    padding: 15px 12px;
+    vertical-align: middle;
+    border-bottom: 1px solid #f1f3f4;
+}
+
+.cita-row {
+    transition: all 0.3s ease;
+}
+
+.cita-row:hover {
+    background-color: #f8f9fa;
+    transform: translateX(5px);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.fecha-hora {
+    display: flex;
+    flex-direction: column;
+}
+
+.fecha {
+    font-weight: 600;
+    color: #495057;
+    font-size: 0.9rem;
+}
+
+.hora {
+    color: #6c757d;
+    font-size: 0.8rem;
+}
+
+.especialidad {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #007bff;
+    font-weight: 500;
+}
+
+.doctor-info .nombre {
+    font-weight: 600;
+    color: #495057;
+    font-size: 0.9rem;
+    margin-bottom: 2px;
+}
+
+.doctor-info .titulo {
+    color: #6c757d;
+    font-size: 0.8rem;
+}
+
+.motivo {
+    color: #6c757d;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+/* Estados de Citas */
+.badge {
+    font-size: 0.75rem;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    justify-content: center;
+}
+
+.estado-completada {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.estado-pendiente {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeaa7;
+}
+
+.estado-cancelada {
+   background-color: #f8d7da;
+   color: #721c24;
+   border: 1px solid #f5c6cb;
+}
+
+/* Botones de Acción */
+.action-buttons {
+   display: flex;
+   gap: 5px;
+   justify-content: center;
+}
+
+.action-buttons .btn {
+   padding: 6px 10px;
+   border-radius: 6px;
+   transition: all 0.3s ease;
+}
+
+.action-buttons .btn:hover {
+   transform: translateY(-2px);
+   box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+/* Estado Vacío */
+.empty-state {
+   text-align: center;
+   padding: 60px 20px;
+}
+
+.empty-icon {
+   font-size: 4rem;
+   color: #dee2e6;
+   margin-bottom: 20px;
+}
+
+.empty-title {
+   color: #6c757d;
+   margin-bottom: 10px;
+   font-weight: 600;
+}
+
+.empty-text {
+   color: #9aa0a6;
+   margin-bottom: 30px;
+   line-height: 1.6;
+}
+
+/* Loading States */
+.loading-overlay {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background: rgba(255,255,255,0.9);
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   z-index: 9999;
+}
+
+.loading-spinner {
+   width: 50px;
+   height: 50px;
+   border: 4px solid #f3f3f3;
+   border-top: 4px solid #007bff;
+   border-radius: 50%;
+   animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+   0% { transform: rotate(0deg); }
+   100% { transform: rotate(360deg); }
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+   .patient-details .row {
+       flex-direction: column;
+   }
+   
+   .stats-container {
+       flex-direction: column;
+       gap: 15px;
+   }
+   
+   .table-responsive {
+       font-size: 0.85rem;
+   }
+   
+   .historial-actions {
+       margin-top: 10px;
+   }
+}
+
+@media (max-width: 576px) {
+   .search-section .row,
+   .filters-content .row {
+       flex-direction: column;
+   }
+   
+   .btn-search {
+       width: 100%;
+       margin-top: 15px;
+   }
+   
+   .filter-buttons {
+       flex-direction: column;
+       width: 100%;
+   }
+   
+   .filter-buttons .btn {
+       width: 100%;
+   }
+   
+   .action-buttons {
+       flex-direction: column;
+   }
+   
+   .table-historial th,
+   .table-historial td {
+       padding: 8px 6px;
+       font-size: 0.8rem;
+   }
+}
+
+/* Animaciones */
+@keyframes slideInUp {
+   from {
+       opacity: 0;
+       transform: translateY(30px);
+   }
+   to {
+       opacity: 1;
+       transform: translateY(0);
+   }
+}
+
+.patient-info-container,
+.historial-container {
+   animation: slideInUp 0.5s ease-out;
+}
+
+/* Modal personalizado para detalles */
+.modal-detalle {
+   z-index: 1060;
+}
+
+.modal-detalle .modal-dialog {
+   max-width: 900px;
+}
+
+.modal-detalle .modal-header {
+   background: linear-gradient(135deg, #007bff, #0056b3);
+   color: white;
+   border-radius: 15px 15px 0 0;
+}
+
+.modal-detalle .modal-body {
+   padding: 30px;
+}
+
+.detalle-section {
+   margin-bottom: 25px;
+   padding: 20px;
+   background: #f8f9fa;
+   border-radius: 10px;
+   border-left: 4px solid #007bff;
+}
+
+.detalle-section h6 {
+   color: #007bff;
+   margin-bottom: 15px;
+   font-weight: 600;
+   display: flex;
+   align-items: center;
+   gap: 8px;
+}
+
+.detalle-grid {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+   gap: 15px;
+}
+
+.detalle-item {
+   display: flex;
+   flex-direction: column;
+   gap: 5px;
+}
+
+.detalle-label {
+   font-weight: 600;
+   color: #495057;
+   font-size: 0.9rem;
+}
+
+.detalle-value {
+   color: #6c757d;
+   font-size: 1rem;
+}
+
+.signos-vitales {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+   gap: 15px;
+}
+
+.signo-vital {
+   text-align: center;
+   padding: 15px;
+   background: white;
+   border-radius: 8px;
+   border: 1px solid #e9ecef;
+}
+
+.signo-valor {
+   font-size: 1.5rem;
+   font-weight: 700;
+   color: #007bff;
+   margin-bottom: 5px;
+}
+
+.signo-label {
+   font-size: 0.8rem;
+   color: #6c757d;
+   text-transform: uppercase;
+   letter-spacing: 0.5px;
+}
+
+/* ===== MEJORAS PARA EL MODAL ===== */
+
+.modal-xl {
+    max-width: 1200px;
+}
+
+.detalle-section {
+    margin-bottom: 25px;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #e9ecef;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.detalle-section h6 {
+    color: #495057;
+    margin-bottom: 20px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #f8f9fa;
+}
+
+.detalle-value-box {
+    background: #f8f9fa;
+    padding: 12px 15px;
+    border-radius: 8px;
+    border-left: 4px solid #007bff;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #495057;
+}
+
+.detalle-value-box.diagnostico {
+    border-left-color: #dc3545;
+    background: #fff5f5;
+}
+
+.detalle-value-box.tratamiento {
+    border-left-color: #007bff;
+    background: #f0f8ff;
+}
+
+/* Información del Paciente */
+.patient-info {
+    background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+    border: 1px solid #bbdefb;
+}
+
+.patient-summary {
+    text-align: center;
+    padding: 15px;
+}
+
+.patient-avatar {
+    font-size: 3rem;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.patient-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #495057;
+    margin-bottom: 5px;
+}
+
+.patient-cedula {
+    color: #6c757d;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+}
+
+.patient-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255,255,255,0.8);
+    padding: 8px 12px;
+    border-radius: 6px;
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    color: #6c757d;
+    font-weight: 500;
+}
+
+.stat-value {
+    font-weight: 600;
+    color: #495057;
+}
+
+.blood-type {
+    background: #dc3545;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+}
+
+.emergency-contact {
+    background: #fff3cd;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #ffeaa7;
+}
+
+/* Signos Vitales Compactos */
+.signos-vitales-compact {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.signo-vital-compact {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #f8f9fa;
+    padding: 12px;
+    border-radius: 8px;
+    border-left: 3px solid #007bff;
+}
+
+.signo-icon {
+    width: 35px;
+    height: 35px;
+    background: #007bff;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+}
+
+.signo-info {
+    flex: 1;
+}
+
+.signo-valor {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #495057;
+    line-height: 1;
+}
+
+.signo-label {
+    font-size: 0.75rem;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+}
+
+.urgency-level {
+    text-align: center;
+}
+
+/* Badges mejorados */
+.badge.fs-6 {
+    font-size: 0.875rem !important;
+    padding: 8px 12px;
+}
+
+/* Alertas pequeñas */
+.alert-sm {
+    padding: 10px 12px;
+    font-size: 0.85rem;
+}
+
+/* Responsive para modal */
+@media (max-width: 992px) {
+    .modal-xl {
+        max-width: 95%;
+        margin: 10px;
+    }
+    
+    .patient-stats {
+        flex-direction: column;
+    }
+    
+    .signos-vitales-compact {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Tabla mejorada */
+.fecha-hora .fecha {
+    font-weight: 600;
+    color: #495057;
+    font-size: 0.9rem;
+}
+
+.fecha-hora .hora {
+    color: #007bff;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+/* ===== ESTADOS DE CITAS CORREGIDOS ===== */
+
+.badge {
+    font-size: 0.75rem;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ✅ ESTADO COMPLETADA */
+.estado-completada {
+    background-color: #d1f2eb !important;
+    color: #0f6848 !important;
+    border: 1px solid #7dcea0;
+}
+
+/* ✅ ESTADO PENDIENTE */
+.estado-pendiente {
+    background-color: #fef9e7 !important;
+    color: #8d6e00 !important;
+    border: 1px solid #f7dc6f;
+}
+
+/* ✅ ESTADO CANCELADA */
+.estado-cancelada {
+    background-color: #fadbd8 !important;
+    color: #922b21 !important;
+    border: 1px solid #f1948a;
+}
+
+/* ✅ ESTADO CONFIRMADA (NUEVO) */
+.estado-confirmada {
+    background-color: #d6eaf8 !important;
+    color: #1b4f72 !important;
+    border: 1px solid #85c1e9;
+}
+
+/* ✅ ESTADO OTRO */
+.estado-otro {
+    background-color: #eaecee !important;
+    color: #566573 !important;
+    border: 1px solid #aeb6bf;
+}
+
+/* ✅ FECHA Y HORA MEJORADA */
+.fecha-hora {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.fecha-hora .fecha {
+    font-weight: 700;
+    color: #2c3e50;
+    font-size: 0.9rem;
+    line-height: 1;
+}
+
+.fecha-hora .hora {
+    color: #3498db;
+    font-size: 0.8rem;
+    font-weight: 600;
+    line-height: 1;
+}
+
+/* ✅ ESPECIALIDAD MEJORADA */
+.especialidad {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #2980b9;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.especialidad i {
+    color: #3498db;
+}
+
+/* ✅ DOCTOR INFO MEJORADA */
+.doctor-info .nombre {
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 0.9rem;
+    margin-bottom: 3px;
+    line-height: 1.2;
+}
+
+.doctor-info .titulo {
+    color: #7f8c8d;
+    font-size: 0.75rem;
+    font-style: italic;
+}
+
+/* ✅ MOTIVO MEJORADO */
+.motivo {
+    color: #5d6d7e;
+    font-size: 0.85rem;
+    line-height: 1.3;
+}
+/* ===== ESTILOS ADICIONALES PARA MODAL MEJORADO ===== */
+
+.modal-xl {
+    max-width: 1300px;
+}
+
+.fecha-destacada {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #2c3e50;
+    background: #e8f4fd;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border-left: 4px solid #3498db;
+}
+
+.doctor-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #2980b9;
+}
+
+/* Secciones específicas del modal */
+.consulta-section {
+    background: linear-gradient(135deg, #e8f5e8, #f0f9f0);
+    border-left: 4px solid #27ae60;
+}
+
+.triaje-section {
+    background: linear-gradient(135deg, #fff3cd, #fef9e7);
+    border-left: 4px solid #f39c12;
+}
+
+.patient-info {
+    background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+    border-left: 4px solid #2196f3;
+}
+
+/* Detalle items mejorados */
+.detalle-item {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.detalle-label {
+    font-weight: 700;
+    color: #2c3e50;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.detalle-value {
+    color: #34495e;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* Value boxes específicos */
+.detalle-value-box {
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #3498db;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #2c3e50;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.detalle-value-box.sintomas {
+    border-left-color: #f39c12;
+    background: #fffbf0;
+}
+
+.detalle-value-box.diagnostico {
+    border-left-color: #e74c3c;
+    background: #fdf2f2;
+    font-weight: 600;
+}
+
+.detalle-value-box.tratamiento {
+    border-left-color: #3498db;
+    background: #f0f8ff;
+}
+
+.detalle-value-box.observaciones {
+    border-left-color: #17a2b8;
+    background: #f0fcff;
+}
+
+/* Patient summary mejorado */
+.patient-summary {
+    text-align: center;
+    padding: 20px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 12px;
+    margin-bottom: 15px;
+}
+
+.patient-avatar {
+    font-size: 4rem;
+    color: #3498db;
+    margin-bottom: 15px;
+}
+
+.patient-name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 8px;
+}
+
+.patient-cedula {
+    color: #7f8c8d;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.patient-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255,255,255,0.9);
+    padding: 10px 15px;
+    border-radius: 8px;
+    border-left: 3px solid #3498db;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: #5d6d7e;
+    font-weight: 600;
+}
+
+.stat-value {
+    font-weight: 700;
+    color: #2c3e50;
+}
+
+.blood-type {
+    background: #e74c3c;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+/* Emergency contact mejorado */
+.emergency-contact {
+    background: #fff5f5;
+    padding: 15px;
+    border-radius: 10px;
+    border: 2px solid #ffcdd2;
+    border-left: 4px solid #f44336;
+}
+
+.emergency-contact h6 {
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+}
+
+/* Signos vitales compactos mejorados */
+.signos-vitales-compact {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.signo-vital-compact {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: rgba(255,255,255,0.9);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+}
+
+.signo-vital-compact:hover {
+    transform: translateY(-2px);
+}
+
+.signo-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.signo-info {
+    flex: 1;
+}
+
+.signo-valor {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #2c3e50;
+    line-height: 1;
+}
+
+.signo-label {
+    font-size: 0.8rem;
+    color: #7f8c8d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 3px;
+    font-weight: 600;
+}
+
+/* Urgency level */
+.urgency-level {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Badges mejorados */
+.badge.fs-6 {
+    font-size: 0.9rem !important;
+    padding: 10px 15px;
+    font-weight: 600;
+}
+
+/* Alertas pequeñas */
+.alert-sm {
+    padding: 12px 15px;
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+}
+
+/* Grid detalle mejorado */
+.detalle-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+}
+
+@media (min-width: 768px) {
+    .detalle-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Responsive para modal */
+@media (max-width: 1200px) {
+    .modal-xl {
+        max-width: 95%;
+        margin: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .patient-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .signos-vitales-compact {
+        gap: 8px;
+    }
+    
+    .signo-vital-compact {
+        padding: 10px;
+        gap: 10px;
+    }
+    
+    .signo-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 0.9rem;
+    }
+}

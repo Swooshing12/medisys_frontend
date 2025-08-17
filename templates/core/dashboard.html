@@ -1,0 +1,516 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Dashboard - MediSys{% endblock %}
+
+{% block page_title %}Dashboard{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item active">Dashboard</li>
+{% endblock %}
+
+{% block content %}
+<!-- Tarjetas de estadísticas -->
+<div class="row mb-4">
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card bg-primary text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="card-title mb-0">Funcionalidades</h6>
+                        <h2 class="mb-0 mt-2">100%</h2>
+                        <small>Completadas</small>
+                    </div>
+                    <div class="card-icon">
+                        <i class="fas fa-check-circle fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card bg-success text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="card-title mb-0">Sistema</h6>
+                        <h2 class="mb-0 mt-2">Activo</h2>
+                        <small>Online</small>
+                    </div>
+                    <div class="card-icon">
+                        <i class="fas fa-server fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card bg-info text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="card-title mb-0">Seguridad</h6>
+                        <h2 class="mb-0 mt-2">Alta</h2>
+                        <small>Protegido</small>
+                    </div>
+                    <div class="card-icon">
+                        <i class="fas fa-shield-alt fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card bg-warning text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="card-title mb-0">Usuario</h6>
+                        <h2 class="mb-0 mt-2">{{ user_data.rol }}</h2>
+                        <small>{{ user_data.tipo_usuario|title }}</small>
+                    </div>
+                    <div class="card-icon">
+                        <i class="fas fa-user fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Panel de Control Mejorado -->
+<div class="row mb-4">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header bg-gradient-primary text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-tachometer-alt"></i>
+                    Panel de Control - MediSys
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6 class="text-success mb-3">
+                            <i class="fas fa-check-circle"></i>
+                            Módulos Activos
+                        </h6>
+                        <div class="feature-list">
+                            <div class="feature-item">
+                                <i class="fas fa-lock text-success"></i>
+                                <span>Autenticación Segura</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-file-medical text-success"></i>
+                                <span>Historial Clínico</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-calendar-check text-success"></i>
+                                <span>Gestión de Citas</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-stethoscope text-success"></i>
+                                <span>Panel Médico</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-key text-success"></i>
+                                <span>Recuperación de Cuentas</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-api text-success"></i>
+                                <span>Integración API REST</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="text-info mb-3">
+                            <i class="fas fa-chart-line"></i>
+                            Estadísticas del Sistema
+                        </h6>
+                        <div class="stats-container">
+                            <div class="stat-item">
+                                <div class="stat-icon bg-primary">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <span class="stat-label">Usuarios Activos</span>
+                                    <span class="stat-value">{{ user_count|default:"N/A" }}</span>
+                                </div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-icon bg-success">
+                                    <i class="fas fa-heartbeat"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <span class="stat-label">Uptime</span>
+                                    <span class="stat-value">99.9%</span>
+                                </div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-icon bg-warning">
+                                    <i class="fas fa-database"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <span class="stat-label">Base de Datos</span>
+                                    <span class="stat-value">Óptima</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header bg-gradient-info text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-info-circle"></i>
+                    Estado de la Sesión
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="session-info">
+                    <div class="session-item">
+                        <span class="session-label"><strong>Estado:</strong></span>
+                        <span class="badge bg-success">Activo</span>
+                    </div>
+                    <div class="session-item">
+                        <span class="session-label"><strong>Autenticación:</strong></span>
+                        <span class="badge bg-primary">API REST</span>
+                    </div>
+                    <div class="session-item">
+                        <span class="session-label"><strong>Endpoint:</strong></span>
+                        <code class="session-code">/auth/login</code>
+                    </div>
+                    <div class="session-item">
+                        <span class="session-label"><strong>Última Conexión:</strong></span>
+                        <small class="text-muted">{{ user_data.fecha_registro|date:"d/m/Y H:i" }}</small>
+                    </div>
+                    <div class="session-item">
+                        <span class="session-label"><strong>IP:</strong></span>
+                        <small class="text-muted">{{ request.META.HTTP_X_FORWARDED_FOR|default:request.META.REMOTE_ADDR }}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Accesos Rápidos -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bg-gradient-dark text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-bolt"></i>
+                    Accesos Rápidos
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <a href="{% url 'authentication:change_password' %}" class="quick-access-card">
+                            <div class="quick-access-content">
+                                <div class="quick-access-icon bg-primary">
+                                    <i class="fas fa-key"></i>
+                                </div>
+                                <div>
+                                    <h6>Cambiar Contraseña</h6>
+                                    <small>Actualizar credenciales</small>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <a href="{% url 'core:historial_clinico' %}" class="quick-access-card">
+                            <div class="quick-access-content">
+                                <div class="quick-access-icon bg-success">
+                                    <i class="fas fa-file-medical"></i>
+                                </div>
+                                <div>
+                                    <h6>Historial Clínico</h6>
+                                    <small>Buscar por cédula</small>
+                                    <span class="badge bg-success">Activo</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <a href="{% url 'core:consulta_citas' %}" class="quick-access-card">
+                            <div class="quick-access-content">
+                                <div class="quick-access-icon bg-info">
+                                    <i class="fas fa-search-plus"></i>
+                                </div>
+                                <div>
+                                    <h6>Consulta de Citas</h6>
+                                    <small>Buscar y filtrar citas</small>
+                                    <span class="badge bg-info">Disponible</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    {% if user_data.tipo_usuario == 'doctor' %}
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <a href="{% url 'core:mis_citas_medico' %}" class="quick-access-card">
+                            <div class="quick-access-content">
+                                <div class="quick-access-icon bg-warning">
+                                    <i class="fas fa-stethoscope"></i>
+                                </div>
+                                <div>
+                                    <h6>Mis Citas</h6>
+                                    <small>Panel médico</small>
+                                    <span class="badge bg-warning">Médico</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Gradientes para los headers */
+    .bg-gradient-primary {
+        background: linear-gradient(45deg, #007bff, #0056b3) !important;
+    }
+    
+    .bg-gradient-info {
+        background: linear-gradient(45deg, #17a2b8, #117a8b) !important;
+    }
+    
+    .bg-gradient-dark {
+        background: linear-gradient(45deg, #343a40, #23272b) !important;
+    }
+
+    /* Cards de estadísticas */
+    .card-icon {
+        opacity: 0.8;
+    }
+    
+    .card-title {
+        font-weight: 600;
+        font-size: 0.9rem;
+    }
+
+    /* Feature list mejorada */
+    .feature-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .feature-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 8px 12px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+    
+    .feature-item:hover {
+        background: #e9ecef;
+        transform: translateX(5px);
+    }
+    
+    .feature-item i {
+        width: 20px;
+        text-align: center;
+    }
+    
+    .feature-item span {
+        font-weight: 500;
+        color: #495057;
+    }
+
+    /* Stats container */
+    .stats-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .stat-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 15px;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border-radius: 10px;
+        border-left: 4px solid #007bff;
+        transition: all 0.3s ease;
+    }
+    
+    .stat-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .stat-icon {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.1rem;
+    }
+    
+    .stat-info {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .stat-label {
+        font-size: 0.85rem;
+        color: #6c757d;
+        margin-bottom: 2px;
+    }
+    
+    .stat-value {
+        font-weight: 700;
+        font-size: 1.1rem;
+        color: #495057;
+    }
+
+    /* Session info mejorada */
+    .session-info {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .session-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid #f1f3f4;
+    }
+    
+    .session-item:last-child {
+        border-bottom: none;
+    }
+    
+    .session-label {
+        color: #495057;
+        font-size: 0.9rem;
+    }
+    
+    .session-code {
+        background: #f8f9fa;
+        color: #e83e8c;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        border: 1px solid #dee2e6;
+    }
+    
+    .badge {
+        font-size: 0.75rem;
+        font-weight: 500;
+    }
+
+    /* Quick access cards mejoradas */
+    .quick-access-card {
+        display: block;
+        padding: 20px;
+        background: white;
+        border: 2px solid #e9ecef;
+        border-radius: 15px;
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: pointer;
+        height: 100%;
+    }
+    
+    .quick-access-card:hover {
+        border-color: var(--bs-primary, #007bff);
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 123, 255, 0.15);
+        text-decoration: none;
+        color: inherit;
+    }
+    
+    .quick-access-content {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        height: 100%;
+    }
+    
+    .quick-access-icon {
+        width: 55px;
+        height: 55px;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.4rem;
+        flex-shrink: 0;
+    }
+    
+    .quick-access-card h6 {
+        margin: 0 0 8px 0;
+        font-weight: 700;
+        font-size: 1rem;
+        color: #2c3e50;
+    }
+    
+    .quick-access-card small {
+        color: #6c757d;
+        margin-bottom: 8px;
+        display: block;
+        font-size: 0.85rem;
+    }
+    
+    .quick-access-card .badge {
+        font-size: 0.7rem;
+        padding: 4px 8px;
+    }
+
+    /* Responsive improvements */
+    @media (max-width: 768px) {
+        .feature-list, .stats-container {
+            gap: 8px;
+        }
+        
+        .stat-item {
+            padding: 12px;
+        }
+        
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            font-size: 1rem;
+        }
+        
+        .quick-access-card {
+            padding: 15px;
+        }
+        
+        .quick-access-icon {
+            width: 45px;
+            height: 45px;
+            font-size: 1.2rem;
+        }
+    }
+</style>
+{% endblock %}

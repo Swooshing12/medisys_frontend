@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}MediSys - Sistema Hospitalario{% endblock %}</title>
+    
+    <!-- Evitar cache -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <!-- CSS personalizado -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- ✅ HEADER -->
+    <header class="main-header">
+        <div class="header-container">
+            <!-- Logo y título -->
+            <div class="header-brand">
+                <button class="sidebar-toggle" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="brand-info">
+                    <i class="fas fa-hospital brand-icon"></i>
+                    <span class="brand-text">MediSys</span>
+                    <span class="brand-subtitle">Sistema Hospitalario</span>
+                </div>
+            </div>
+            
+            <!-- Información del usuario y dropdown -->
+            <div class="header-user">
+                <div class="user-info">
+                    <span class="user-name">{{ user_data.nombres }} {{ user_data.apellidos }}</span>
+                    <span class="user-role">{{ user_data.rol }}</span>
+                </div>
+                <div class="dropdown">
+                    <button class="user-avatar dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-user-circle"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <a class="dropdown-item" href="#" onclick="showUserInfo()">
+                                <i class="fas fa-id-card"></i>
+                                Información Personal
+                            </a>
+                        </li>
+                        <li>
+                            <!-- Cambiar esta línea en el dropdown: -->
+                        <a class="dropdown-item" href="{% url 'authentication:change_password_logged' %}">
+                            <i class="fas fa-key"></i>
+                            Cambiar Contraseña
+                        </a>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <a class="dropdown-item text-danger" href="#" onclick="confirmLogout()">
+                                <i class="fas fa-sign-out-alt"></i>
+                                Cerrar Sesión
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ✅ SIDEBAR -->
+    <nav class="main-sidebar" id="mainSidebar">
+        <div class="sidebar-content">
+            <!-- Usuario en sidebar -->
+            <div class="sidebar-user">
+                <div class="user-avatar-large">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="user-details">
+                    <h6>{{ user_data.nombres }}</h6>
+                    <small>{{ user_data.rol }}</small>
+                </div>
+            </div>
+
+            <!-- Menú de navegación -->
+            <ul class="sidebar-menu">
+                <li class="menu-header">
+                    <span>MENÚ PRINCIPAL</span>
+                </li>
+                
+                <li class="menu-item">
+                    <a href="{% url 'core:dashboard' %}" class="menu-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                
+              <li class="menu-item">
+                    <a href="{% url 'core:historial_clinico' %}" class="menu-link {% if request.resolver_match.url_name == 'historial_clinico' %}active{% endif %}">
+                        <i class="fas fa-file-medical"></i>
+                        <span>Historial Clínico</span>
+                    </a>
+                </li>
+
+                
+                <li class="menu-item">
+    <a href="{% url 'core:consulta_citas' %}" class="menu-link {% if request.resolver_match.url_name == 'consulta_citas' %}active{% endif %}">
+        <i class="fas fa-search-plus"></i>
+        <span>Consulta de Citas</span>
+    </a>
+</li>
+                
+                {% if user_data.tipo_usuario == 'doctor' %}
+                <li class="menu-item">
+                    <a href="{% url 'core:mis_citas_medico' %}" class="menu-link {% if request.resolver_match.url_name == 'mis_citas_medico' %}active{% endif %}" >
+                        <i class="fas fa-stethoscope"></i>
+                        <span>Mis Citas</span>
+                    </a>
+                </li>
+                {% endif %}
+                
+                <li class="menu-header">
+                    <span>CONFIGURACIÓN</span>
+                </li>
+                
+                <!-- Cambiar esta línea en el sidebar: -->
+            <li class="menu-item">
+                <a href="{% url 'authentication:change_password_logged' %}" class="menu-link">
+                    <i class="fas fa-key"></i>
+                    <span>Cambiar Contraseña</span>
+                </a>
+            </li>
+                        </ul>
+        </div>
+    </nav>
+
+    <!-- ✅ CONTENIDO PRINCIPAL -->
+    <main class="main-content" id="mainContent">
+        <!-- Breadcrumb -->
+        <div class="content-header">
+            <div class="breadcrumb-container">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'core:dashboard' %}">
+                                <i class="fas fa-home"></i> Inicio
+                            </a>
+                        </li>
+                        {% block breadcrumb %}{% endblock %}
+                    </ol>
+                </nav>
+                <h1 class="page-title">{% block page_title %}Dashboard{% endblock %}</h1>
+            </div>
+        </div>
+
+        <!-- Contenido de la página -->
+        <div class="content-body">
+            {% if messages %}
+                <div class="messages-container">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                            {% if message.tags == 'error' or message.tags == 'danger' %}
+                                <i class="fas fa-exclamation-triangle"></i>
+                            {% elif message.tags == 'success' %}
+                                <i class="fas fa-check-circle"></i>
+                            {% elif message.tags == 'warning' %}
+                                <i class="fas fa-exclamation-circle"></i>
+                            {% elif message.tags == 'info' %}
+                                <i class="fas fa-info-circle"></i>
+                            {% endif %}
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- JavaScript personalizado -->
+    <script src="{% static 'js/dashboard.js' %}"></script>
+    
+    {% block extra_js %}{% endblock %}
+
+    <!-- JavaScript inline para funciones del template -->
+    <script>
+        // Información personal
+        // Cambiar esta función en base.html
+function showUserInfo() {
+    // Redirigir a la vista en lugar de mostrar modal
+    window.location.href = '{% url "core:user_profile" %}';
+}
+
+        // Confirmar logout
+        function confirmLogout() {
+            Swal.fire({
+                icon: 'question',
+                title: '¿Cerrar Sesión?',
+                text: '¿Está seguro que desea salir del sistema?',
+                showCancelButton: true,
+                confirmButtonColor: '#dc3545',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Sí, cerrar sesión',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Crear formulario para enviar POST al logout
+                    const form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = '{% url "authentication:logout" %}';
+                    
+                    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]');
+                    if (csrfToken) {
+                        form.appendChild(csrfToken.cloneNode(true));
+                    } else {
+                        const csrf = document.createElement('input');
+                        csrf.type = 'hidden';
+                        csrf.name = 'csrfmiddlewaretoken';
+                        csrf.value = '{{ csrf_token }}';
+                        form.appendChild(csrf);
+                    }
+                    
+                    document.body.appendChild(form);
+                    form.submit();
+                }
+            });
+        }
+
+        // Próximamente
+        function showComingSoon(feature) {
+            Swal.fire({
+                icon: 'info',
+                title: 'Próximamente',
+                text: `La funcionalidad "${feature}" estará disponible pronto.`,
+                confirmButtonColor: '#007bff',
+                confirmButtonText: 'Entendido'
+            });
+        }
+    </script>
+</body>
+</html>
