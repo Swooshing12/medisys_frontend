@@ -303,13 +303,29 @@ class ChangePasswordLoggedView(View):
         logger.info(f"🔄 PASSWORD CHANGE ATTEMPT: {user_data['correo']} - Result: {result.get('success', False)}")
         
         if result.get('success', False):
-            # Cambio exitoso
-            messages.success(request, 'Contraseña cambiada exitosamente.')
+            # ✅ CAMBIO EXITOSO - CERRAR SESIÓN Y REDIRIGIR A LOGIN
+            correo_usuario = user_data.get('correo', 'unknown')
+            nombres_usuario = user_data.get('nombres', 'Usuario')
             
-            # Log de éxito
-            logger.info(f"✅ PASSWORD CHANGED: {user_data['correo']}")
+            # Log de éxito antes de limpiar sesión
+            logger.info(f"✅ PASSWORD CHANGED SUCCESSFULLY: {correo_usuario}")
+            logger.info(f"🔐 FORCING LOGOUT AFTER PASSWORD CHANGE: {correo_usuario}")
             
-            return redirect('core:user_profile')
+            # ✅ LIMPIAR COMPLETAMENTE LA SESIÓN
+            request.session.flush()
+            
+            # ✅ MENSAJE DE ÉXITO Y REDIRIGIR AL LOGIN
+            messages.success(request, f'✅ Contraseña cambiada exitosamente, {nombres_usuario}. Por seguridad, debe iniciar sesión nuevamente con su nueva contraseña.')
+            
+            # ✅ CREAR RESPUESTA CON HEADERS PARA LIMPIAR CACHE
+            response = redirect('authentication:login')
+            
+            # Headers para evitar cache y forzar nueva autenticación
+            response['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+            response['Pragma'] = 'no-cache'
+            response['Expires'] = '0'
+            
+            return response
         else:
             # Error al cambiar
             api_message = result.get('message', 'Error cambiando contraseña')

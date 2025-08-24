@@ -77,7 +77,7 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # ✅ API Configuration
-API_BASE_URL = 'http://localhost/MenuDinamico/api'
+API_BASE_URL = 'https://62d02d348a20.ngrok-free.app/MenuDinamico/api'
 
 # ✅ Session settings
 SESSION_COOKIE_AGE = 3600  # 1 hora

@@ -13,6 +13,7 @@ class AuthenticationMiddleware:
         # URLs que NO requieren autenticación
         self.public_urls = [
             '/auth/login/',
+            '/auth/change-password/',      # ✅ AGREGAR ESTA LÍNEA
             '/auth/forgot-password/',
             '/admin/',
             '/static/',
